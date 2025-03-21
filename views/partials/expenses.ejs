@@ -1,0 +1,1054 @@
+<div class="expenses-container" data-theme="light">
+    <!-- Bộ lọc đơn giản hơn -->
+    <div class="filter-section" data-theme="light">
+        <div class="filter-controls-expense">
+            <div class="filter-group search-group">
+                <div class="search-input-wrapper">
+                    <input type="text" id="filter-search" class="search-input" placeholder="Tìm kiếm chi phí...">
+                    <i class="bi bi-search search-icon"></i>
+                </div>
+            </div>
+            
+            <div class="expense-counter" id="expense-counter">Tổng: <span id="filtered-count">0</span>/<span id="total-count">0</span></div>
+            
+            <div class="filter-group status-group">
+                <select id="filter-status" class="filter-select">
+                    <option value="all">Tất cả</option>
+                    <option value="Chưa thanh toán">Chưa thanh toán</option>
+                    <option value="Đã thanh toán">Đã thanh toán</option>
+                </select>
+            </div>
+            
+            <button type="button" id="reload-expenses-btn" class="btn-reload-expenses" title="Tải lại dữ liệu">
+                <i class="bi bi-arrow-clockwise"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Danh sách chi phí -->
+    <div class="expenses-grid" id="expenses-list" data-theme="light">
+        <div class="loading-container" id="loading-indicator">
+        <div class="spinner"></div>
+        <p>Đang tải dữ liệu...</p>
+        </div>
+        <!-- Danh sách chi phí sẽ được thêm vào đây bằng JS -->
+    </div>
+    
+    <!-- Template thẻ chi phí -->
+    <template id="expense-card-template">
+      <div class="expense-card">
+        <!-- Phần nội dung - hàng 1 -->
+        <div class="expense-card-header">
+          <div class="expense-card-left">
+            <div class="expense-card-icon"></div>
+            <div class="expense-card-basic-info">
+              <div class="expense-card-title"></div>
+              <div class="expense-card-category"></div>
+            </div>
+          </div>
+          <div class="expense-card-amount"></div>
+        </div>
+
+        <div class="expense-card-details">
+          <div class="expense-card-location">
+            <i class="bi bi-geo-alt"></i>
+            <span class="location-text"></span>
+          </div>
+          <div class="expense-card-date"></div>
+        </div>
+
+        <div class="expense-card-notes-container">
+          <div class="expense-card-notes">
+            <i class="bi bi-sticky"></i>
+            <span class="notes-text"></span>
+          </div>
+          <div class="expense-card-image-count">
+            <i class="bi bi-images"></i>
+            <span class="image-count">0</span>
+          </div>
+        </div>
+
+        <!-- Phần hình ảnh - hàng 2 -->
+        <div class="expense-card-images"></div>
+      </div>
+    </template>
+
+    <!-- Template cho image item trong expense card -->
+    <template id="expense-image-template">
+      <div class="expense-image-item">
+        <img class="expense-thumbnail" alt="Hình ảnh chi phí">
+      </div>
+    </template>
+</div>
+
+<!-- Modal thêm chi phí -->
+<div class="expense-modal" id="addExpenseModal" tabindex="-1">
+  <div class="expense-modal-container">
+    <div class="expense-modal-content">
+      <div class="expense-modal-header">
+        <h5 class="expense-modal-title">
+          <i class="bi bi-plus-circle me-2"></i>Thêm chi phí mới
+        </h5>
+        <button type="button" class="expense-close-btn close-modal-btn">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+      <div class="expense-modal-body">
+        <form id="addExpenseForm" class="expense-form" enctype="multipart/form-data">
+          <!-- Thêm trường input ẩn để lưu ID chi phí cha -->
+          <input type="hidden" id="expenseParentId" name="parentId">
+          
+          <div class="expense-form-group">
+            <label class="expense-form-label">Tên chi phí</label>
+            <div class="expense-dropdown-container">
+              <input type="text" class="expense-form-input" id="expenseName" name="noi_dung" placeholder="Nhập nội dung chi phí..." autocomplete="off" required>
+              <div class="expense-dropdown" id="expense-names-dropdown"></div>
+            </div>
+          </div>
+          
+          <div class="expense-form-group">
+            <label class="expense-form-label">Số tiền</label>
+            <div class="expense-amount-input-group">
+              <input type="text" class="expense-form-input expense-amount-input" id="expenseAmount" name="gia_tien" placeholder="0" autocomplete="off" required>
+              <div class="expense-currency">VND</div>
+            </div>
+          </div>
+          
+          <div class="expense-form-group">
+            <label class="expense-form-label">Danh mục</label>
+            <select class="expense-form-input" id="expenseCategory" name="danh_muc" required>
+              <option value="" disabled selected>Chọn danh mục...</option>
+              <option value="Ăn uống">Ăn uống</option>
+              <option value="Đi lại">Đi lại</option>
+              <option value="Mua sắm">Mua sắm</option>
+              <option value="Giải trí">Giải trí</option>
+              <option value="Y tế">Y tế</option>
+              <option value="Nhà cửa">Nhà cửa</option>
+              <option value="Giáo dục">Giáo dục</option>
+              <option value="Hóa đơn">Hóa đơn</option>
+              <option value="Khác">Khác</option>
+            </select>
+          </div>
+          
+          <div class="expense-form-group">
+            <label class="expense-form-label">Địa điểm</label>
+            <div class="expense-dropdown-container">
+              <input type="text" class="expense-form-input" id="expenseLocation" name="dia_diem" placeholder="Nhập địa điểm..." autocomplete="off">
+              <div class="expense-dropdown" id="locations-dropdown"></div>
+            </div>
+          </div>
+          
+          <div class="expense-form-group">
+            <label class="expense-form-label">Ngày chi tiêu</label>
+            <input type="date" class="expense-form-input" id="expenseDate" name="ngay_thang" required autocomplete="off">
+          </div>
+          
+          <div class="expense-form-group">
+            <label class="expense-form-label">Hình ảnh hóa đơn</label>
+            <div class="expense-upload-container">
+              <input type="file" class="expense-file-input" id="expenseImages" name="images" accept="image/*" multiple>
+              <label for="expenseImages" class="expense-upload-label">
+                <i class="bi bi-cloud-upload"></i>
+                <span>Kéo thả hoặc chọn hình ảnh hóa đơn</span>
+              </label>
+              <div id="imagePreviewContainer" class="expense-preview-container"></div>
+            </div>
+            <small class="expense-help-text">Tải lên tối đa 5 hình ảnh, kích thước mỗi ảnh không quá 5MB. Hình ảnh sẽ được lưu trữ trong Supabase.</small>
+          </div>
+          
+          <div class="expense-form-group">
+            <label class="expense-form-label">Ghi chú</label>
+            <textarea class="expense-form-input" id="expenseNote" name="ghi_chu" rows="3" placeholder="Nhập ghi chú (nếu có)..."></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="expense-modal-footer">
+        <button type="button" class="expense-btn-secondary close-modal-btn">Hủy</button>
+        <button type="button" class="expense-btn-primary" id="saveExpenseBtn">
+          <i class="bi bi-check2 me-1"></i>Lưu
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal chi tiết chi phí -->
+<div class="expense-detail-modal" id="expense-detail-modal" tabindex="-1">
+  <div class="expense-detail-container">
+    <div class="expense-detail-content">
+      <div class="expense-detail-header">
+        <h2 class="expense-detail-title">Chi tiết chi phí</h2>
+        <button type="button" class="expense-detail-close">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+      
+      <div class="expense-detail-body">
+        <!-- Header với layout tối ưu cho mobile -->
+        <div class="expense-info-header">
+          <!-- Cột bên trái: Tổng chi phí -->
+          <div class="expense-info-left">
+            <div class="expense-amount-display">
+              <div class="expense-amount-label">Tổng chi phí</div>
+              <div class="expense-amount-value" id="expense-detail-gia-tien">0 đ</div>
+            </div>
+          </div>
+          
+          <!-- Cột bên phải: Trạng thái và hành động -->
+          <div class="expense-info-right">
+            <!-- Trạng thái -->
+            <div class="expense-status" id="detail-status-badge">
+              <i class="bi bi-exclamation-circle"></i>
+              <span id="detail-status">Chưa thanh toán</span>
+            </div>
+            
+            <!-- Nút hành động -->
+            <div class="expense-actions">
+              <button id="edit-parent-btn" class="expense-action-btn">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button id="delete-parent-btn" class="expense-action-btn danger">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Thông tin chi tiết -->
+        <div class="expense-info-body">
+          <div class="expense-info-item">
+            <div class="expense-info-icon">
+              <i class="bi bi-calendar-event"></i>
+            </div>
+            <div class="expense-info-content">
+              <div class="expense-info-label">Thời gian</div>
+              <div class="expense-info-value" id="expense-detail-ngay">-</div>
+            </div>
+          </div>
+          
+          <div class="expense-info-item">
+            <div class="expense-info-icon">
+              <i class="bi bi-tag"></i>
+            </div>
+            <div class="expense-info-content">
+              <div class="expense-info-label">Danh mục</div>
+              <div class="expense-info-value" id="expense-detail-danh-muc">-</div>
+            </div>
+          </div>
+          
+          <div class="expense-info-item">
+            <div class="expense-info-icon">
+              <i class="bi bi-geo-alt"></i>
+            </div>
+            <div class="expense-info-content">
+              <div class="expense-info-label">Địa điểm</div>
+              <div class="expense-info-value" id="expense-detail-dia-diem">Không có</div>
+            </div>
+          </div>
+          
+          <div class="expense-info-item">
+            <div class="expense-info-icon">
+              <i class="bi bi-card-text"></i>
+            </div>
+            <div class="expense-info-content">
+              <div class="expense-info-label">Nội dung</div>
+              <div class="expense-info-value" id="expense-detail-noi-dung">-</div>
+            </div>
+          </div>
+          
+          <div class="expense-info-item">
+            <div class="expense-info-icon">
+              <i class="bi bi-sticky"></i>
+            </div>
+            <div class="expense-info-content">
+              <div class="expense-info-label">Ghi chú</div>
+              <div class="expense-info-value" id="expense-detail-ghi-chu">Không có ghi chú</div>
+            </div>
+          </div>
+          
+          <div class="expense-info-item">
+            <div class="expense-info-icon">
+              <i class="bi bi-images"></i>
+            </div>
+            <div class="expense-info-content">
+              <div class="expense-info-label">Hình ảnh</div>
+              <div class="expense-info-value">
+                <div id="expense-detail-images" class="expense-detail-images"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="expense-detail-footer">
+        <button type="button" class="expense-detail-btn-secondary" id="close-detail-modal">
+          <i class="bi bi-x-circle"></i> Đóng
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Thay đổi cấu trúc nút để hoạt động tốt với CSS mới -->
+<button id="add-expense-btn" class="primary-btn" data-theme="light">
+    <i class="bi bi-plus-circle"></i>
+    <span>Thêm chi phí</span>
+</button>
+
+<!-- Thêm các thư viện cần thiết -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Script sửa lỗi UI - phải chạy trước -->
+<script src="/js/fixui.js"></script>
+
+<!-- Script đồng bộ token giữa các file -->
+<script>
+// Script đồng bộ token giữa app.js và expenses.js
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('Đồng bộ hóa token giữa các module...');
+  
+  // Tạo đối tượng AppUtils global nếu chưa có
+  if (!window.AppUtils) {
+    window.AppUtils = {};
+  }
+  
+  // Lấy token từ localStorage hoặc sessionStorage
+  const getLocalToken = function() {
+    return localStorage.getItem('token') || 
+           localStorage.getItem('auth.token') || 
+           sessionStorage.getItem('sb_token');
+  };
+  
+  // Lấy token từ cookie
+  const getCookieToken = function(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+  };
+  
+  // Hàm lấy token từ bất kỳ nguồn nào
+  window.AppUtils.getToken = function() {
+    return getCookieToken('sb_token') || getLocalToken();
+  };
+  
+  // Kiểm tra xem có token không
+  const token = window.AppUtils.getToken();
+  if (token) {
+    console.log('💡 AppUtils: Đã tìm thấy token, đồng bộ với các lưu trữ khác');
+    
+    // Đồng bộ lưu trữ
+    localStorage.setItem('token', token);
+    sessionStorage.setItem('sb_token', token);
+    document.cookie = `sb_token=${token}; path=/; max-age=604800`;
+    
+    // Đánh dấu đã đăng nhập
+    localStorage.setItem('isLoggedIn', 'true');
+  } else {
+    console.warn('⚠️ AppUtils: Không tìm thấy token trong bất kỳ lưu trữ nào');
+  }
+});
+</script>
+
+<!-- Thay thế JavaScript cũ bằng cách tải module từ expenses.js -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('Trang expenses.ejs đang sử dụng public/js/expenses.js');
+  console.log('DOM đã sẵn sàng, bắt đầu khởi tạo trang chi phí');
+  
+  // Kiểm tra xem nút thêm chi phí có tồn tại không
+  const addButton = document.getElementById('add-expense-btn');
+  if (addButton) {
+    console.log('Đã tìm thấy nút thêm chi phí:', addButton);
+    
+    // Thêm event listener trực tiếp từ HTML
+    addButton.addEventListener('click', function() {
+      console.log('Nút thêm chi phí được nhấn từ HTML');
+      
+      // Tìm modal
+      const modal = document.getElementById('addExpenseModal');
+      if (modal) {
+        console.log('Đã tìm thấy modal, đang mở...');
+        modal.style.display = 'block';
+        setTimeout(() => {
+          modal.classList.add('show');
+        }, 10);
+      } else {
+        console.error('Không tìm thấy modal từ HTML');
+      }
+    });
+  } else {
+    console.error('Không tìm thấy nút thêm chi phí từ HTML');
+  }
+  
+  // Load dữ liệu khi trang đã sẵn sàng (chỉ khi không được xử lý tự động bởi DOMContentLoaded trong expenses.js)
+  if (window.ExpensesManager && !window.location.pathname.includes('/expenses')) {
+    // Nếu không ở path /expenses nhưng vẫn muốn khởi tạo
+    window.ExpensesManager.initExpensesPage();
+  } else if (typeof initExpensesPage === 'function') {
+    console.log('Gọi hàm initExpensesPage từ HTML');
+    initExpensesPage();
+  } else {
+    console.error('Không tìm thấy hàm initExpensesPage');
+  }
+});
+</script>
+
+<!-- CSS cho modal -->
+<style>
+/* Modal Container */
+.expense-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  display: none;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.expense-modal.show {
+  display: block;
+}
+
+.expense-modal-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100vh;
+  max-height: 100vh;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-out;
+  background-color: var(--card-bg);
+  overflow-y: auto;
+}
+
+@media (min-width: 768px) {
+  .expense-modal-container {
+    width: 40%;
+  }
+}
+
+.expense-modal.show .expense-modal-container {
+  transform: translateX(0);
+}
+
+.expense-modal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--card-bg);
+  pointer-events: auto;
+}
+
+/* Modal Header */
+.expense-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.expense-modal-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.expense-close-btn {
+  padding: 0.5rem;
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+/* Modal Body */
+.expense-modal-body {
+  flex: 1 1 auto;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+/* Form Styles */
+.expense-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.expense-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.expense-form-label {
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.expense-form-input,
+.expense-form-select {
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.375rem;
+  background: var(--card-bg);
+  color: var(--text-color);
+  min-height: 42px;
+}
+
+.expense-input-group {
+  display: flex;
+  align-items: center;
+}
+
+.expense-input-addon {
+  padding: 0.75rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-left: none;
+  color: var(--text-color);
+}
+
+.expense-location-btn {
+  padding: 0.75rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-left: none;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+/* Upload Container */
+.expense-upload-container {
+  border: 2px dashed var(--border-color);
+  border-radius: 0.5rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.expense-file-input {
+  display: none;
+}
+
+.expense-upload-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.expense-preview-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+/* Modal Footer */
+.expense-modal-footer {
+  padding: 1rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.expense-btn-primary,
+.expense-btn-secondary {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.expense-btn-primary {
+  background: var(--primary-color);
+  color: white;
+}
+
+.expense-btn-secondary {
+  background: var(--border-color);
+  color: var(--text-color);
+}
+
+/* Dark Mode */
+[data-theme="dark"] .expense-modal-content,
+[data-theme="dark"] .expense-form-input,
+[data-theme="dark"] .expense-form-select,
+[data-theme="dark"] .expense-input-addon,
+[data-theme="dark"] .expense-location-btn {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+/* Toast Styles */
+.expense-toast {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  min-width: 250px;
+  z-index: 1060;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-out;
+}
+
+.expense-toast.show {
+  transform: translateX(0);
+}
+
+.expense-toast.success .expense-toast-content {
+  background-color: var(--success-color, #28a745);
+}
+
+.expense-toast.error .expense-toast-content {
+  background-color: var(--danger-color, #dc3545);
+}
+
+.expense-toast-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  color: white;
+  border-radius: 0.375rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.expense-toast-message {
+  margin-right: 1rem;
+}
+
+.expense-toast-close {
+  background: transparent;
+  border: none;
+  color: white;
+  padding: 0.25rem;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.expense-toast-close:hover {
+  opacity: 1;
+}
+
+/* Image Preview Styles */
+.expense-image-preview {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 0.375rem;
+  overflow: hidden;
+}
+
+.expense-image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.expense-remove-image {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.expense-remove-image:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* Detail Modal Styles */
+.expense-detail-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  display: none;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.expense-detail-modal.show {
+  display: block;
+}
+
+.expense-detail-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-out;
+}
+
+@media (min-width: 768px) {
+  .expense-detail-container {
+    width: 40%;
+  }
+}
+
+.expense-detail-modal.show .expense-detail-container {
+  transform: translateX(0);
+}
+
+.expense-detail-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: var(--card-bg);
+  pointer-events: auto;
+}
+
+.expense-detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.expense-detail-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.expense-detail-close {
+  padding: 0.35rem;
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+.expense-detail-body {
+  flex: 1 1 auto;
+  padding: 0.5rem;
+  overflow-y: auto;
+}
+
+.expense-info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+  padding: 0.6rem;
+  background: var(--card-bg);
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.expense-amount-display {
+  text-align: left;
+}
+
+.expense-amount-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.15rem;
+}
+
+.expense-amount-value {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.expense-info-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.expense-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  background: var(--warning-bg);
+  color: var(--warning-color);
+}
+
+.expense-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.expense-action-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  background: var(--card-bg);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.expense-action-btn:hover {
+  background: var(--border-color);
+}
+
+.expense-action-btn.danger {
+  color: var(--danger-color);
+}
+
+.expense-action-btn.danger:hover {
+  background: var(--danger-color);
+  color: white;
+}
+
+.expense-info-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.expense-info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.6rem;
+  background: var(--card-bg);
+  border-radius: 0.375rem;
+  border: 1px solid var(--border-color);
+  margin-bottom: 0.3rem;
+}
+
+.expense-info-icon {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--primary-light);
+  color: var(--primary-color);
+  font-size: 0.8rem;
+}
+
+.expense-info-content {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+}
+
+.expense-info-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 0.15rem;
+}
+
+.expense-info-value {
+  color: var(--text-color);
+  font-weight: 500;
+  font-size: 0.9rem;
+  word-break: break-word;
+  width: 100%;
+}
+
+.expense-detail-footer {
+  padding: 1rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.expense-detail-btn-primary,
+.expense-detail-btn-secondary {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.expense-detail-btn-primary {
+  background: var(--primary-color);
+  color: white;
+}
+
+.expense-detail-btn-secondary {
+  background: var(--border-color);
+  color: var(--text-color);
+}
+
+/* Dark Mode */
+[data-theme="dark"] .expense-detail-content {
+  background: var(--card-bg);
+}
+
+[data-theme="dark"] .expense-info-item {
+  background: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .expense-action-btn {
+  background: var(--border-color);
+}
+
+/* CSS cho phần hiển thị hình ảnh */
+.expense-detail-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 6px;
+  margin-top: 0.3rem;
+  width: 100%;
+  padding: 0;
+}
+
+.expense-detail-image {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 0.375rem;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid var(--border-color);
+  max-width: 100%;
+  margin: 0;
+}
+
+.expense-detail-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Media query cho các thiết bị khác nhau */
+@media (max-width: 576px) {
+  .expense-detail-header {
+    padding: 0.4rem 0.5rem;
+  }
+  
+  .expense-detail-title {
+    font-size: 0.95rem;
+  }
+  
+  .expense-detail-body {
+    padding: 0.4rem 0.5rem;
+  }
+  
+  .expense-info-header {
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    flex-direction: column;
+  }
+  
+  .expense-info-right {
+    width: 100%;
+    margin-top: 0.4rem;
+    justify-content: space-between;
+  }
+  
+  .expense-amount-value {
+    font-size: 1.1rem;
+  }
+  
+  .expense-info-item {
+    padding: 0.5rem;
+    margin-bottom: 0.4rem;
+  }
+  
+  .expense-detail-images {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    margin-top: 0.2rem;
+  }
+  
+  .expense-status {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+  }
+  
+  .expense-detail-footer {
+    padding: 0.4rem 0.5rem;
+  }
+  
+  .expense-detail-btn-secondary {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* Responsive cho màn hình siêu nhỏ */
+@media (max-width: 360px) {
+  .expense-detail-header {
+    padding: 0.35rem 0.4rem;
+  }
+  
+  .expense-detail-body {
+    padding: 0.35rem 0.4rem;
+  }
+  
+  .expense-info-item {
+    padding: 0.35rem 0.4rem;
+  }
+  
+  .expense-detail-images {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+  }
+}
+
+/* Hiệu ứng hover cho hình ảnh */
+.expense-detail-image:hover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.expense-detail-image.expense-more-images {
+  background-color: rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.expense-detail-image.expense-more-images:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+</style> 

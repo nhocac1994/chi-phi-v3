@@ -1,0 +1,348 @@
+<!-- Main Content -->
+<div class="main-content">
+  <div class="settings-container">
+    <!-- Tab Navigation -->
+    <div class="settings-nav">
+      <button class="settings-nav-item active" data-tab="profile">
+        <i class="bi bi-person-circle"></i>
+        <span>Hồ sơ</span>
+      </button>
+      <button class="settings-nav-item" data-tab="account">
+        <i class="bi bi-shield-lock"></i>
+        <span>Bảo mật</span>
+      </button>
+      <button class="settings-nav-item" data-tab="preferences">
+        <i class="bi bi-sliders"></i>
+        <span>Tùy chọn</span>
+      </button>
+      <button class="settings-nav-item" data-tab="notifications">
+        <i class="bi bi-bell"></i>
+        <span>Thông báo</span>
+      </button>
+      <button class="settings-nav-item" data-tab="data">
+        <i class="bi bi-database"></i>
+        <span>Dữ liệu</span>
+      </button>
+      <button class="settings-nav-item settings-nav-item-logout" id="logoutButton">
+        <i class="bi bi-box-arrow-right"></i>
+        <span>Đăng xuất</span>
+      </button>
+    </div>
+    
+    <!-- Settings Content -->
+    <div class="settings-content">
+      <!-- Hồ sơ cá nhân -->
+      <div class="settings-tab active" id="profile-tab">
+        <div class="settings-header">
+          <h2>Hồ sơ cá nhân</h2>
+          <p>Cập nhật thông tin cá nhân của bạn</p>
+        </div>
+        
+        <div class="settings-section-wrapper">
+          <div class="settings-section">
+            <div class="profile-avatar">
+              <div class="avatar-preview">
+                <img src="" id="avatar-preview" alt="Ảnh đại diện" style="display: none;">
+                <i class="bi bi-person-circle" id="avatar-placeholder"></i>
+              </div>
+              <div class="avatar-upload">
+                <button class="avatar-upload-btn">
+                  <i class="bi bi-camera"></i>
+                  <span>Đổi ảnh</span>
+                </button>
+                <input type="text" id="avatar_url" name="avatar_url" placeholder="Hoặc nhập URL hình ảnh" class="avatar-url-input">
+              </div>
+            </div>
+            
+            <!-- Profile Form -->
+            <form id="profile-form" class="settings-form">
+              <div class="form-row">
+                <div class="form-group full-width">
+                  <label for="full_name">Họ và tên</label>
+                  <input type="text" id="full_name" name="full_name" placeholder="Nhập họ và tên của bạn">
+                </div>
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="email" readonly>
+                  <div class="input-note">Email không thể thay đổi</div>
+                </div>
+                
+                <div class="form-group">
+                  <label for="phone">Số điện thoại</label>
+                  <input type="tel" id="phone" name="phone" placeholder="Nhập số điện thoại của bạn">
+                </div>
+              </div>
+              
+              <div class="form-group full-width">
+                <label for="bio">Giới thiệu</label>
+                <textarea id="bio" name="bio" placeholder="Thêm vài dòng giới thiệu về bạn (nếu muốn)"></textarea>
+                <div class="input-note">Thông tin giới thiệu sẽ được lưu trong metadata</div>
+              </div>
+              
+              <div class="form-actions">
+                <button type="button" class="cancel-btn">Hủy</button>
+                <button type="submit" class="save-btn">Lưu thay đổi</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Tài khoản -->
+      <div class="settings-tab" id="account-tab">
+        <div class="settings-header">
+          <h2>Tài khoản</h2>
+          <p>Quản lý tài khoản và bảo mật</p>
+        </div>
+        
+        <div class="settings-form">
+          <div class="settings-section">
+            <h3>Đổi mật khẩu</h3>
+            <form id="change-password-form">
+              <input type="hidden" id="username_for_accessibility" name="username" autocomplete="username">
+              
+              <div class="form-group">
+                <label for="current_password">Mật khẩu hiện tại</label>
+                <input type="password" id="current_password" name="current_password" placeholder="Nhập mật khẩu hiện tại" autocomplete="current-password" required>
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="new_password">Mật khẩu mới</label>
+                  <input type="password" id="new_password" name="new_password" placeholder="Nhập mật khẩu mới" autocomplete="new-password" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="confirm_password">Xác nhận mật khẩu</label>
+                  <input type="password" id="confirm_password" name="confirm_password" placeholder="Nhập lại mật khẩu mới" autocomplete="new-password" required>
+                </div>
+              </div>
+              
+              <div class="form-actions">
+                <button type="submit" class="save-btn">Cập nhật mật khẩu</button>
+              </div>
+            </form>
+          </div>
+          
+          <div class="settings-section">
+            <h3>Xác thực hai yếu tố</h3>
+            <div class="two-factor-container">
+              <div class="two-factor-info">
+                <p>Bảo vệ tài khoản của bạn bằng xác thực hai yếu tố. Mỗi khi đăng nhập, bạn sẽ cần nhập mã từ ứng dụng xác thực.</p>
+                <div class="status-container">
+                  <span class="status-label">Trạng thái:</span>
+                  <span class="status-value disabled">Chưa kích hoạt</span>
+                </div>
+              </div>
+              <button class="btn-setup-2fa">Thiết lập</button>
+            </div>
+          </div>
+          
+          <div class="settings-section danger-zone">
+            <h3>Vùng nguy hiểm</h3>
+            <div class="danger-action">
+              <div class="danger-info">
+                <h4>Xóa tài khoản</h4>
+                <p>Khi xóa tài khoản, tất cả dữ liệu của bạn sẽ bị xóa vĩnh viễn và không thể khôi phục.</p>
+              </div>
+              <button class="danger-btn" id="delete-account-btn">Xóa tài khoản</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+      <!-- Tùy chỉnh -->
+      <div class="settings-tab" id="preferences-tab">
+        <div class="settings-header">
+          <h2>Tùy chỉnh</h2>
+          <p>Điều chỉnh giao diện và trải nghiệm người dùng</p>
+        </div>
+        
+        <div class="settings-form">
+          <div class="settings-section">
+            <h3>Giao diện</h3>
+            
+            <div class="preference-item">
+              <div class="preference-info">
+                <h4>Thu gọn sidebar</h4>
+                <p>Mặc định thu gọn sidebar khi vào ứng dụng</p>
+              </div>
+              <div class="toggle-switch">
+                <input type="checkbox" id="collapsed_sidebar" class="toggle-input">
+                <label for="collapsed_sidebar" class="toggle-label"></label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="settings-section">
+            <h3>Cài đặt hiển thị</h3>
+            
+            <div class="preference-item">
+              <div class="preference-info">
+                <h4>Định dạng ngày</h4>
+                <p>Chọn định dạng hiển thị ngày</p>
+              </div>
+              <div class="dropdown date-format-dropdown">
+                <button class="dropdown-toggle" type="button">
+                  <span class="selected-text">DD/MM/YYYY</span>
+                  <i class="bi bi-chevron-down"></i>
+                </button>
+                <ul class="dropdown-menu">
+                  <li class="dropdown-item active" data-format="dd/mm/yyyy">DD/MM/YYYY</li>
+                  <li class="dropdown-item" data-format="mm/dd/yyyy">MM/DD/YYYY</li>
+                  <li class="dropdown-item" data-format="yyyy-mm-dd">YYYY-MM-DD</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="preference-item">
+              <div class="preference-info">
+                <h4>Số lượng kết quả mỗi trang</h4>
+                <p>Số lượng chi phí hiển thị trên mỗi trang</p>
+              </div>
+              <div class="dropdown items-per-page-dropdown">
+                <button class="dropdown-toggle" type="button">
+                  <span class="selected-text">10</span>
+                  <i class="bi bi-chevron-down"></i>
+                </button>
+                <ul class="dropdown-menu">
+                  <li class="dropdown-item active" data-count="10">10</li>
+                  <li class="dropdown-item" data-count="20">20</li>
+                  <li class="dropdown-item" data-count="50">50</li>
+                  <li class="dropdown-item" data-count="100">100</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-actions">
+            <button type="button" class="save-btn" id="save-preferences">Lưu tùy chỉnh</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Thông báo -->
+      <div class="settings-tab" id="notifications-tab">
+        <div class="settings-header">
+          <h2>Thông báo</h2>
+          <p>Quản lý các thông báo từ ứng dụng</p>
+        </div>
+        
+        <div class="settings-form">
+          <div class="settings-section">
+            <h3>Email</h3>
+            
+            <div class="preference-item">
+              <div class="preference-info">
+                <h4>Thông báo chi phí định kỳ</h4>
+                <p>Nhận email thông báo khi đến hạn thanh toán chi phí định kỳ</p>
+              </div>
+              <div class="toggle-switch">
+                <input type="checkbox" id="email_recurring" class="toggle-input" checked>
+                <label for="email_recurring" class="toggle-label"></label>
+              </div>
+            </div>
+            
+            <div class="preference-item">
+              <div class="preference-info">
+                <h4>Báo cáo hàng tháng</h4>
+                <p>Nhận email tổng kết chi phí cuối tháng</p>
+              </div>
+              <div class="toggle-switch">
+                <input type="checkbox" id="email_monthly" class="toggle-input" checked>
+                <label for="email_monthly" class="toggle-label"></label>
+              </div>
+            </div>
+            
+            <div class="preference-item">
+              <div class="preference-info">
+                <h4>Cảnh báo chi tiêu</h4>
+                <p>Nhận email khi chi tiêu vượt quá ngân sách</p>
+              </div>
+              <div class="toggle-switch">
+                <input type="checkbox" id="email_alerts" class="toggle-input">
+                <label for="email_alerts" class="toggle-label"></label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="settings-section">
+            <h3>Ứng dụng</h3>
+            
+            <div class="preference-item">
+              <div class="preference-info">
+                <h4>Thông báo trong ứng dụng</h4>
+                <p>Hiển thị thông báo trực tiếp trong ứng dụng</p>
+              </div>
+              <div class="toggle-switch">
+                <input type="checkbox" id="app_notifications" class="toggle-input" checked>
+                <label for="app_notifications" class="toggle-label"></label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-actions">
+            <button type="button" class="save-btn" id="save-notifications">Lưu cài đặt</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Dữ liệu -->
+      <div class="settings-tab" id="data-tab">
+        <div class="settings-header">
+          <h2>Dữ liệu</h2>
+          <p>Quản lý dữ liệu của bạn</p>
+        </div>
+        
+        <div class="settings-form">
+          <div class="settings-section">
+            <h3>Xuất dữ liệu</h3>
+            <p>Tải xuống bản sao dữ liệu chi phí của bạn dưới dạng file CSV hoặc Excel</p>
+            
+            <div class="export-options">
+              <button class="export-btn">
+                <i class="bi bi-file-earmark-spreadsheet"></i>
+                Xuất CSV
+              </button>
+              <button class="export-btn">
+                <i class="bi bi-file-earmark-excel"></i>
+                Xuất Excel
+              </button>
+            </div>
+          </div>
+          
+          <div class="settings-section">
+            <h3>Nhập dữ liệu</h3>
+            <p>Nhập dữ liệu chi phí từ file CSV hoặc Excel</p>
+            
+            <div class="import-container">
+              <label for="import-file" class="import-label">
+                <i class="bi bi-cloud-upload"></i>
+                <span>Chọn file hoặc kéo thả vào đây</span>
+                <input type="file" id="import-file" accept=".csv, .xlsx" class="import-input">
+              </label>
+            </div>
+          </div>
+          
+          <div class="settings-section danger-zone">
+            <h3>Dữ liệu ứng dụng</h3>
+            
+            <div class="danger-action">
+              <div class="danger-info">
+                <h4>Xóa dữ liệu ứng dụng</h4>
+                <p>Xóa tất cả dữ liệu chi phí của bạn. Hành động này không thể hoàn tác.</p>
+              </div>
+              <button class="danger-btn" id="clear-data-btn">Xóa tất cả dữ liệu</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Đã bỏ script xử lý đăng xuất vì đã được chuyển vào settings.js --> 

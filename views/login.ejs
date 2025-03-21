@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng nhập | Quản lý Chi phí</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #5a67d8;
+      --primary-hover: #4c51bf;
+      --text-color: #e7dbdb;
+      --light-text: #cfd6e2;
+      --border-color: #ebeef1;
+      --bg-color: #f9fafb;
+      --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+      --focus-ring: 0 0 0 3px rgba(99, 102, 241, 0.2);
+      --success-color: #10b981;
+      --error-color: #ef4444;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body{
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Jost', sans-serif;
+      background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+    }
+    .main{
+      width: 350px;
+      height: 400px;
+      background: red;
+      overflow: hidden;
+      background: url("https://doc-08-2c-docs.googleusercontent.com/docs/securesc/68c90smiglihng9534mvqmq1946dmis5/fo0picsp1nhiucmc0l25s29respgpr4j/1631524275000/03522360960922298374/03522360960922298374/1Sx0jhdpEpnNIydS4rnN4kHSJtU1EyWka?e=view&authuser=0&nonce=gcrocepgbb17m&user=03522360960922298374&hash=tfhgbs86ka6divo3llbvp93mg4csvb38") no-repeat center/ cover;
+      border-radius: 10px;
+      box-shadow: 5px 20px 50px #000;
+    }
+    
+    .auth-container {
+      padding: 1rem;
+
+    }
+
+    
+    .auth-card {
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 5px 20px 50px #000;
+    }
+    
+    .auth-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .auth-tab {
+      flex: 1;
+      text-align: center;
+      padding: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      color: var(--light-text);
+      transition: all 0.2s;
+      position: relative;
+    }
+    
+    .auth-tab.active {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+    
+    .auth-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background-color: var(--primary-color);
+    }
+    
+    .auth-form {
+      padding: 1.5rem;
+    }
+    
+    .form-title {
+      font-size: 1.25rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: var(--text-color);
+      font-weight: 600;
+    }
+    
+    .form-group {
+      margin-bottom: 1.25rem;
+      position: relative;
+    }
+    
+    .form-group label {
+      display: none;
+    }
+    
+    .input-group {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    
+    .input-icon {
+      position: absolute;
+      left: 1rem;
+      color: var(--light-text);
+      font-size: 1rem;
+      pointer-events: none;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 0.75rem 1rem 0.75rem 2.5rem;
+      border: 1px solid var(--border-color);
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      transition: all 0.2s;
+      color: var(--text-color);
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: var(--focus-ring);
+    }
+    
+    .toggle-password {
+      position: absolute;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: var(--light-text);
+      cursor: pointer;
+      padding: 0;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .toggle-password:focus {
+      outline: none;
+    }
+    
+    .form-check {
+      display: flex;
+      align-items: center;
+    }
+    .form-check-label{
+      color: var(--text-color);
+    }
+    
+    .form-check-input {
+      margin-right: 0.5rem;
+      height: 1rem;
+      width: 1rem;
+    }
+    .form-check-input:checked {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+    .form-check-input:focus {
+      box-shadow: none;
+    }
+    
+    .form-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      font-size: 0.875rem;
+    }
+    
+    .forgot-password {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    .forgot-password:hover {
+      text-decoration: underline;
+    }
+    
+    .error-message {
+      color: var(--error-color);
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+      min-height: 1.25rem;
+    }
+    
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    
+    .btn:hover {
+      background-color: var(--primary-hover);
+    }
+    
+    .btn:focus {
+      outline: none;
+      box-shadow: var(--focus-ring);
+    }
+    
+    .success-message {
+      color: var(--success-color);
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+    }
+    
+    @media (max-width: 480px) {
+      .auth-container {
+        padding: 0.5rem;
+      }
+      
+      .auth-form {
+        padding: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="main">
+    <div class="auth-container">
+      <div class="auth-card">
+        <div class="auth-tabs">
+          <div class="auth-tab active" data-tab="login">Đăng nhập</div>
+          <div class="auth-tab" data-tab="register">Đăng ký</div>
+        </div>
+        
+        <!-- Form đăng nhập -->
+        <form id="login-form" class="auth-form">
+          <h2 class="form-title">Đăng nhập vào tài khoản</h2>
+          
+          <div class="form-group">
+            <label for="login-email">Email</label>
+            <div class="input-group">
+              <span class="input-icon">
+                <i class="bi bi-envelope"></i>
+              </span>
+              <input type="email" id="login-email" name="email" class="form-control" placeholder="Email" required>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="login-password">Mật khẩu</label>
+            <div class="input-group">
+              <span class="input-icon">
+                <i class="bi bi-lock"></i>
+              </span>
+              <input type="password" id="login-password" name="password" class="form-control" placeholder="Mật khẩu" required>
+              <button type="button" class="toggle-password">
+                <i class="bi bi-eye"></i>
+              </button>
+            </div>
+          </div>
+          
+          <div class="form-options">
+            <div class="form-check">
+              <input type="checkbox" id="remember-me" class="form-check-input">
+              <label class="form-check-label" for="remember-me">Ghi nhớ đăng nhập</label>
+            </div>
+            <a href="#" class="forgot-password">Quên mật khẩu?</a>
+          </div>
+          
+          <div id="login-error" class="error-message" style="display: none;"></div>
+          
+          <button type="submit" id="login-button" class="btn">Đăng nhập</button>
+        </form>
+        
+        <!-- Form đăng ký -->
+        <form id="register-form" class="auth-form" style="display: none;">
+          <h2 class="form-title">Tạo tài khoản mới</h2>
+          
+          <div class="form-group">
+            <label for="register-name">Họ và tên</label>
+            <div class="input-group">
+              <span class="input-icon">
+                <i class="bi bi-person"></i>
+              </span>
+              <input type="text" id="register-name" class="form-control" placeholder="Họ và tên" required>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="register-email">Email</label>
+            <div class="input-group">
+              <span class="input-icon">
+                <i class="bi bi-envelope"></i>
+              </span>
+              <input type="email" id="register-email" class="form-control" placeholder="Email" required>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="register-password">Mật khẩu</label>
+            <div class="input-group">
+              <span class="input-icon">
+                <i class="bi bi-lock"></i>
+              </span>
+              <input type="password" id="register-password" class="form-control" placeholder="Mật khẩu" required>
+              <button type="button" class="toggle-password">
+                <i class="bi bi-eye"></i>
+              </button>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="register-confirm-password">Xác nhận mật khẩu</label>
+            <div class="input-group">
+              <span class="input-icon">
+                <i class="bi bi-lock"></i>
+              </span>
+              <input type="password" id="register-confirm-password" class="form-control" placeholder="Xác nhận mật khẩu" required>
+              <button type="button" class="toggle-password">
+                <i class="bi bi-eye"></i>
+              </button>
+            </div>
+          </div>
+          
+          <div id="register-error" class="error-message"></div>
+          
+          <button type="button" id="register-button" class="btn">Đăng ký</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Xử lý chuyển đổi tab
+      const tabs = document.querySelectorAll('.auth-tab');
+      const forms = document.querySelectorAll('.auth-form');
+      
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const target = tab.getAttribute('data-tab');
+          
+          // Kích hoạt tab
+          tabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          
+          // Hiển thị form tương ứng
+          forms.forEach(form => {
+            if (form.id === `${target}-form`) {
+              form.style.display = 'block';
+            } else {
+              form.style.display = 'none';
+            }
+          });
+        });
+      });
+      
+      // Xử lý hiển thị/ẩn mật khẩu
+      const toggleButtons = document.querySelectorAll('.toggle-password');
+      
+      toggleButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const input = this.closest('.input-group').querySelector('input');
+          const icon = this.querySelector('i');
+          
+          if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('bi-eye');
+            icon.classList.add('bi-eye-slash');
+          } else {
+            input.type = 'password';
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

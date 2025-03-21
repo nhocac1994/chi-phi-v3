@@ -1,0 +1,198 @@
+<!-- Loading Overlay -->
+<div id="loading-overlay">
+  <div class="loading-container">
+    <div class="loading-spinner"></div>
+    <p>Đang tải dữ liệu...</p>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+  <!-- Bộ lọc -->
+  <%- include('./dashboard-filter') %>
+
+  <!-- Tổng quan -->
+  <div class="overview-section">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon">
+            <i class="bi bi-wallet2"></i>
+          </div>
+          <h3>Tổng chi phí tháng này</h3>
+        </div>
+        <div class="stat-value" id="total-month-expenses">0 đ</div>
+        <div class="stat-footer">
+          <span class="stat-change" id="month-expenses-change">
+            <i class="bi bi-arrow-up"></i>
+            0%
+          </span>
+          <span class="stat-period">so với tháng trước</span>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon">
+            <i class="bi bi-graph-up-arrow"></i>
+          </div>
+          <h3>Chi phí trung bình/ngày</h3>
+        </div>
+        <div class="stat-value" id="average-daily-expense">0 đ</div>
+        <div class="stat-footer">
+          <span class="stat-period">trong tháng này</span>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon">
+            <i class="bi bi-pie-chart"></i>
+          </div>
+          <h3>Danh mục chi nhiều nhất</h3>
+        </div>
+        <div class="stat-value" id="top-category">-</div>
+        <div class="stat-footer">
+          <span class="stat-amount" id="top-category-amount">0 đ</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Biểu đồ -->
+  <div class="charts-section">
+    <div class="chart-container">
+      <div class="chart-header">
+        <h3>Chi phí theo thời gian</h3>
+      </div>
+      <div class="chart-body">
+        <canvas id="expenses-timeline"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <div class="chart-header">
+        <h3>Chi phí theo danh mục</h3>
+      </div>
+      <div class="chart-body">
+        <div class="pie-chart-container">
+          <canvas id="category-distribution"></canvas>
+          <div id="category-legend" class="chart-legend"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chi phí gần đây -->
+  <div class="recent-expenses">
+    <div class="section-header">
+      <h3>Chi phí gần đây</h3>
+      <a href="/expenses" class="view-all">Xem tất cả <i class="bi bi-arrow-right"></i></a>
+    </div>
+    
+    <div class="expenses-grid" id="recent-expenses-grid">
+      <!-- Expenses will be loaded here -->
+    </div>
+  </div>
+
+  <!-- Chi phí định kỳ sắp đến hạn -->
+  <div class="upcoming-expenses">
+    <div class="section-header">
+      <h3>Chi phí định kỳ sắp đến hạn</h3>
+      <button class="section-header-button" id="manage-recurring">Quản lý <i class="bi bi-gear"></i></button>
+    </div>
+    
+    <div class="recurring-expenses-list" id="upcoming-recurring-expenses">
+      <!-- Recurring expenses will be loaded here -->
+    </div>
+  </div>
+</div>
+
+<!-- Template cho expense card -->
+<template id="expense-card-template">
+  <div class="expense-card">
+    <div class="expense-icon">
+      <i class="bi"></i>
+    </div>
+    <div class="expense-details">
+      <div class="expense-title"></div>
+      <div class="expense-meta">
+        <span class="expense-category"></span>
+        <span class="expense-date"></span>
+      </div>
+    </div>
+    <div class="expense-amount"></div>
+  </div>
+</template>
+
+<!-- Template cho recurring expense -->
+<template id="recurring-expense-template">
+  <div class="recurring-expense-item">
+    <div class="recurring-expense-icon">
+      <i class="bi"></i>
+    </div>
+    <div class="recurring-expense-details">
+      <div class="recurring-expense-title"></div>
+      <div class="recurring-expense-meta">
+        <span class="recurring-expense-category"></span>
+        <span class="recurring-expense-frequency"></span>
+      </div>
+    </div>
+    <div class="recurring-expense-amount"></div>
+    <div class="recurring-expense-due">
+      <span class="due-label">Đến hạn:</span>
+      <span class="due-date"></span>
+    </div>
+  </div>
+</template>
+
+<!-- Script đồng bộ hóa token -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('Dashboard đang chạy kiểm tra token...');
+  
+  // Hàm lấy cookie
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+  }
+  
+  // Kiểm tra token từ nhiều nguồn
+  const tokenFromCookie = getCookie('sb_token');
+  const tokenFromLocalStorage = localStorage.getItem('token') || localStorage.getItem('sb-token');
+  const tokenFromSessionStorage = sessionStorage.getItem('sb_token');
+  
+  // Sử dụng token từ bất kỳ nguồn nào
+  const token = tokenFromCookie || tokenFromLocalStorage || tokenFromSessionStorage;
+  
+  console.log(`Dashboard check - Token từ cookie: ${tokenFromCookie ? 'Có' : 'Không có'}`);
+  console.log(`Dashboard check - Token từ localStorage: ${tokenFromLocalStorage ? 'Có' : 'Không có'}`);
+  console.log(`Dashboard check - Token từ sessionStorage: ${tokenFromSessionStorage ? 'Có' : 'Không có'}`);
+  
+  // Nếu có token, đồng bộ đến tất cả vị trí lưu trữ
+  if (token) {
+    console.log('Dashboard: Đã tìm thấy token, đồng bộ hóa để đảm bảo khả dụng...');
+    
+    // Lưu token vào tất cả vị trí
+    localStorage.setItem('token', token);
+    localStorage.setItem('sb-token', token);
+    sessionStorage.setItem('sb_token', token);
+    
+    // Thiết lập cookie với thời hạn 7 ngày
+    const expires = new Date(Date.now() + 7 * 864e5).toUTCString();
+    document.cookie = `sb_token=${token}; expires=${expires}; path=/`;
+    
+    // Đánh dấu đã đăng nhập
+    localStorage.setItem('isLoggedIn', 'true');
+  } else {
+    console.warn('Dashboard: Không tìm thấy token trong bất kỳ nguồn nào!');
+    
+    // Nếu không có token, chuyển về trang đăng nhập sau 1 giây
+    setTimeout(() => {
+      window.location.href = '/login';
+    }, 1000);
+  }
+});
+</script> 

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  
+  <!-- CSS chung -->
+  <link rel="stylesheet" href="/css/styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+  
+  <!-- CSS cho từng trang -->
+  <% if (page === 'expenses') { %>
+    <link rel="stylesheet" href="/css/expenses.css">
+  <% } else if (page === 'reports') { %>
+    <link rel="stylesheet" href="/css/reports.css">
+  <% } else if (page === 'settings') { %>
+    <link rel="stylesheet" href="/css/settings.css">
+  <% } %>
+  
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body data-theme="light">
+  <!-- Header chung -->
+  <%- include('./partials/header') %>
+  
+  <!-- Nội dung chính -->
+  <div class="dashboard-layout" data-theme="light">
+    <% if (page === 'dashboard') { %>
+      <%- include('./partials/dashboard') %>
+    <% } else if (page === 'expenses') { %>
+      <%- include('./partials/expenses') %>
+    <% } else if (page === 'reports') { %>
+      <%- include('./partials/reports') %>
+    <% } else if (page === 'settings') { %>
+      <%- include('./partials/settings') %>
+    <% } %>
+  </div>
+  
+  <!-- Scripts chung -->
+  <script src="/js/app.js"></script>
+  <script src="/js/charts.js"></script>
+  <script src="/js/theme.js"></script>
+  
+  <!-- Scripts cho từng trang -->
+  <% if (page === 'dashboard') { %>
+    <script src="/js/dashboard.js"></script>
+  <% } else if (page === 'expenses') { %>
+    <script src="/js/expenses.js"></script>
+  <% } else if (page === 'reports') { %>
+    <script src="/js/reports.js"></script>
+  <% } else if (page === 'settings') { %>
+    <script src="/js/settings.js"></script>
+  <% } %>
+
+</body>
+</html>

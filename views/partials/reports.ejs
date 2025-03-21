@@ -1,0 +1,378 @@
+<!-- Bộ lọc dữ liệu báo cáo -->
+<div class="reports-global-filter reports-mobile-filter">
+    <div class="reports-filter-controls">
+      <div class="reports-filters-container">
+        <!-- Dropdown chọn loại báo cáo -->
+        <div class="reports-filter-group">
+          <div class="reports-dropdown">
+            <button class="reports-dropdown-toggle" id="report-type-toggle" type="button">
+              <i class="bi bi-file-earmark-text reports-mobile-icon"></i>
+              <span class="reports-selected-text">Báo cáo theo thời gian</span>
+              <i class="bi bi-chevron-down"></i>
+            </button>
+            <ul class="reports-dropdown-menu" id="report-type-menu">
+              <li class="reports-dropdown-item active" data-report="time">
+                <i class="bi bi-clock-history"></i> Báo cáo theo thời gian
+              </li>
+              <li class="reports-dropdown-item" data-report="category">
+                <i class="bi bi-grid-3x3-gap"></i> Báo cáo theo danh mục
+              </li>
+              <li class="reports-dropdown-item" data-report="comparison">
+                <i class="bi bi-bar-chart-line"></i> Báo cáo so sánh
+              </li>
+              <li class="reports-dropdown-item" data-report="detail">
+                <i class="bi bi-list-ul"></i> Chi tiết chi phí
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Dropdown chọn phạm vi thời gian -->
+        <div class="reports-filter-group">
+          <div class="reports-dropdown">
+            <button class="reports-dropdown-toggle" id="time-range-toggle" type="button">
+              <i class="bi bi-calendar reports-mobile-icon"></i>
+              <span class="reports-selected-text">Năm hiện tại</span>
+              <i class="bi bi-chevron-down"></i>
+            </button>
+            <ul class="reports-dropdown-menu" id="time-range-menu">
+              <li class="reports-dropdown-item" data-range="month">
+                <i class="bi bi-calendar-month"></i> Tháng hiện tại
+              </li>
+              <li class="reports-dropdown-item" data-range="quarter">
+                <i class="bi bi-calendar-range"></i> Quý hiện tại
+              </li>
+              <li class="reports-dropdown-item active" data-range="year">
+                <i class="bi bi-calendar-check"></i> Năm hiện tại
+              </li>
+              <li class="reports-dropdown-item" data-range="custom">
+                <i class="bi bi-calendar3"></i> Tùy chọn
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Dropdown chọn trạng thái thanh toán -->
+        <div class="reports-filter-group">
+          <div class="reports-dropdown">
+            <button class="reports-dropdown-toggle" id="payment-status-toggle" type="button">
+              <i class="bi bi-check-circle reports-mobile-icon"></i>
+              <span class="reports-selected-text">Tất cả trạng thái</span>
+              <i class="bi bi-chevron-down"></i>
+            </button>
+            <ul class="reports-dropdown-menu" id="payment-status-menu">
+              <li class="reports-dropdown-item active" data-status="all">
+                <i class="bi bi-check-all"></i> Tất cả trạng thái
+              </li>
+              <li class="reports-dropdown-item" data-status="paid">
+                <i class="bi bi-check-circle"></i> Đã thanh toán
+              </li>
+              <li class="reports-dropdown-item" data-status="unpaid">
+                <i class="bi bi-exclamation-circle"></i> Chưa thanh toán
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Phần tùy chọn thời gian (ẩn mặc định) -->
+      <div class="reports-custom-date" id="customDateRange" style="display: none;">
+        <div class="reports-date-inputs">
+          <div class="reports-date-field">
+            <label for="startDate">Từ ngày:</label>
+            <input type="date" id="startDate" name="startDate" class="reports-date-input">
+          </div>
+          <div class="reports-date-field">
+            <label for="endDate">Đến ngày:</label>
+            <input type="date" id="endDate" name="endDate" class="reports-date-input">
+          </div>
+        </div>
+        <button class="reports-apply-btn" id="applyDateBtn">
+          <i class="bi bi-check2"></i> Áp dụng
+        </button>
+      </div>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="reports-main">
+  <!-- Phần tổng quan chi phí -->
+  <div class="reports-stats-section reports-mobile-stats">
+    <div class="reports-stats-grid">
+      <div class="reports-stat-card">
+        <div class="reports-stat-header">
+          <div class="reports-stat-icon">
+            <i class="bi bi-wallet"></i>
+          </div>
+          <h3>Tổng chi phí</h3>
+        </div>
+        <div class="reports-stat-value" id="total-expenses">0 đ</div>
+      </div>
+      
+      <div class="reports-stat-card">
+        <div class="reports-stat-header">
+          <div class="reports-stat-icon">
+            <i class="bi bi-tag"></i>
+          </div>
+          <h3>Danh mục cao nhất</h3>
+        </div>
+        <div class="reports-stat-value" id="highest-category">Chưa có dữ liệu</div>
+      </div>
+      
+      <div class="reports-stat-card">
+        <div class="reports-stat-header">
+          <div class="reports-stat-icon">
+            <i class="bi bi-calculator"></i>
+          </div>
+          <h3>Trung bình</h3>
+        </div>
+        <div class="reports-stat-value" id="average-expense">0 đ</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Báo cáo theo thời gian -->
+  <div class="reports-section reports-mobile-section" id="time-report">
+    <div class="reports-section-header">
+      <h2>Chi phí theo thời gian</h2>
+      <div class="reports-export-actions">
+        <!-- <button class="reports-export-btn" id="export-time-pdf">
+          <i class="bi bi-file-pdf"></i>
+          PDF
+        </button>
+        <button class="reports-export-btn" id="export-time-excel">
+          <i class="bi bi-file-excel"></i>
+          Excel
+        </button> -->
+      </div>
+    </div>
+    
+    <div class="reports-chart-wrapper reports-mobile-chart">
+      <canvas id="time-chart"></canvas>
+    </div>
+    
+    <div class="reports-table-container reports-mobile-table">
+      <table class="reports-table" id="time-table">
+        <thead>
+          <tr>
+            <th>Thời gian</th>
+            <th>Chi phí</th>
+            <th>So với trung bình</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Sẽ được điền bởi JavaScript -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <!-- Báo cáo theo danh mục -->
+  <div class="reports-section reports-mobile-section" id="category-report" style="display: none;">
+    <div class="reports-section-header">
+      <h2>Chi phí theo danh mục</h2>
+      <div class="reports-export-actions">
+        <!-- <button class="reports-export-btn" id="export-category-pdf">
+          <i class="bi bi-file-pdf"></i>
+          PDF
+        </button>
+        <button class="reports-export-btn" id="export-category-excel">
+          <i class="bi bi-file-excel"></i>
+          Excel
+        </button> -->
+      </div>
+    </div>
+    
+    <div class="reports-chart-grid reports-mobile-grid">
+      <div class="reports-chart-half reports-mobile-chart-half">
+        <canvas id="category-chart"></canvas>
+      </div>
+      <div class="reports-chart-half reports-mobile-legend">
+        <div class="reports-category-legend" id="category-legend">
+          <!-- Sẽ được điền bởi JavaScript -->
+        </div>
+      </div>
+    </div>
+    
+    <div class="reports-table-container">
+      <table class="reports-table" id="category-table">
+        <thead>
+          <tr>
+            <th>Danh mục</th>
+            <th>Chi phí</th>
+            <th>Tỷ lệ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Sẽ được điền bởi JavaScript -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <!-- Báo cáo so sánh -->
+  <div class="reports-section reports-mobile-section" id="comparison-report" style="display: none;">
+    <div class="reports-section-header">
+      <h2>So sánh chi phí</h2>
+      <!-- <div class="reports-export-actions">
+        <button class="reports-export-btn" id="export-comparison-pdf">
+          <i class="bi bi-file-pdf"></i> PDF
+        </button>
+        <button class="reports-export-btn" id="export-comparison-excel">
+          <i class="bi bi-file-excel"></i> Excel
+        </button>
+      </div> -->
+    </div>
+    
+    <div class="reports-comparison-options reports-mobile-comparison">
+      <div class="reports-comparison-group">
+        <div class="reports-comparison-buttons">
+          <button class="reports-comparison-btn active" data-type="month">
+            <i class="bi bi-calendar-month"></i> Tháng
+          </button>
+          <button class="reports-comparison-btn" data-type="quarter">
+            <i class="bi bi-calendar-range"></i> Quý
+          </button>
+          <button class="reports-comparison-btn" data-type="year">
+            <i class="bi bi-calendar"></i> Năm
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="reports-chart-wrapper reports-mobile-chart">
+      <canvas id="comparison-chart"></canvas>
+    </div>
+    
+    <div class="reports-table-container reports-mobile-table">
+      <table class="reports-table" id="comparison-table">
+        <thead>
+          <tr>
+            <th>Thời gian</th>
+            <th>Chi phí</th>
+            <th>Thay đổi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Sẽ được điền bởi JavaScript -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Báo cáo chi tiết từng chi phí -->
+  <div class="reports-section reports-mobile-section" id="detail-report" style="display: none;">
+    <div class="reports-section-header">
+      <h2>Chi tiết chi phí</h2>
+      <div class="reports-export-actions">
+        <button class="reports-export-btn reports-mobile-btn" id="export-detail-pdf">
+          <i class="bi bi-file-pdf"></i>
+          <span class="reports-btn-text">PDF</span>
+        </button>
+        <button class="reports-export-btn reports-mobile-btn" id="export-detail-excel">
+          <i class="bi bi-file-excel"></i>
+          <span class="reports-btn-text">Excel</span>
+        </button>
+      </div>
+    </div>
+    
+    <div class="reports-table-container reports-mobile-table">
+      <table class="reports-table" id="detail-table">
+        <thead>
+          <tr>
+            <th style="width: 50px;">STT</th>
+            <th>Tên chi phí</th>
+            <th style="width: 150px;">Số tiền</th>
+            <th style="width: 150px;">Ngày tháng</th>
+            <th>Địa điểm</th>
+            <th>Ghi chú</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Sẽ được điền bởi JavaScript -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+  // Kiểm tra nếu Chart.js đã được tải thành công
+  window.addEventListener('DOMContentLoaded', function() {
+    if (typeof Chart === 'undefined') {
+      console.error('Chart.js chưa được tải. Đang tải lại...');
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js';
+      script.onload = function() {
+        console.log('Chart.js đã được tải lại thành công');
+        // Thông báo cho reports.js rằng Chart.js đã sẵn sàng
+        window.chartJsLoaded = true;
+      };
+      document.head.appendChild(script);
+    } else {
+      console.log('Chart.js đã được tải thành công');
+      window.chartJsLoaded = true;
+    }
+    
+    // Kiểm tra html2pdf và XLSX
+    if (typeof html2pdf === 'undefined') {
+      console.log('Đang tải html2pdf.js...');
+      var html2pdfScript = document.createElement('script');
+      html2pdfScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+      document.head.appendChild(html2pdfScript);
+    }
+    
+    if (typeof XLSX === 'undefined') {
+      console.log('Đang tải XLSX.js...');
+      var xlsxScript = document.createElement('script');
+      xlsxScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+      document.head.appendChild(xlsxScript);
+    }
+  });
+  // Thêm hàm này vào file reports.js hoặc reports-filters.js
+function setupMobileDropdowns() {
+  if (window.innerWidth <= 768) {
+    // Tạo backdrop cho dropdown mobile
+    if (!document.querySelector('.reports-dropdown-backdrop')) {
+      const backdrop = document.createElement('div');
+      backdrop.className = 'reports-dropdown-backdrop';
+      backdrop.addEventListener('click', closeAllDropdowns);
+      document.body.appendChild(backdrop);
+    }
+    
+    // Cập nhật logic đóng mở dropdown
+    const dropdowns = document.querySelectorAll('.reports-dropdown');
+    dropdowns.forEach(dropdown => {
+      const toggle = dropdown.querySelector('.reports-dropdown-toggle');
+      const menu = dropdown.querySelector('.reports-dropdown-menu');
+      
+      toggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const isActive = dropdown.classList.contains('active');
+        
+        // Đóng tất cả dropdown khác
+        closeAllDropdowns();
+        
+        if (!isActive) {
+          dropdown.classList.add('active');
+          document.body.classList.add('dropdown-active');
+        }
+      });
+    });
+  }
+}
+
+// Thêm gọi hàm này trong sự kiện DOMContentLoaded và khi resize
+window.addEventListener('resize', setupMobileDropdowns);
+document.addEventListener('DOMContentLoaded', setupMobileDropdowns);
+</script>
+
+
+<script src="/js/reports-filters.js"></script>
+<script src="/js/reports-update.js"></script>

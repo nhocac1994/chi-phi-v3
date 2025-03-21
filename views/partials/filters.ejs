@@ -1,0 +1,54 @@
+<!-- Filter Section -->
+<section class="filters-section">
+  <div class="filters-header">
+    <h2 class="filters-title">Bộ lọc</h2>
+    <div class="filters-counter" id="filter-counter">Hiển thị 0/0 chi phí</div>
+  </div>
+
+  <div class="filters-grid">
+    <!-- Tìm kiếm -->
+    <div class="filter-group">
+      <label class="filter-label" for="search-expenses">Tìm kiếm</label>
+      <div class="search-input-wrapper">
+        <i class="bi bi-search"></i>
+        <input type="text" id="search-expenses" class="filter-input search-input" placeholder="Tìm theo tên chi phí...">
+      </div>
+    </div>
+
+    <!-- Lọc theo trạng thái -->
+    <div class="filter-group">
+      <label class="filter-label" for="filter-status">Trạng thái</label>
+      <select id="filter-status" class="filter-input filter-select">
+        <option value="all">Tất cả trạng thái</option>
+        <option value="pending">Chờ xử lý</option>
+        <option value="completed">Đã hoàn thành</option>
+        <option value="cancelled">Đã hủy</option>
+      </select>
+    </div>
+
+    <!-- Lọc theo danh mục -->
+    <div class="filter-group">
+      <label class="filter-label" for="filter-category">Danh mục</label>
+      <select id="filter-category" class="filter-input filter-select">
+        <option value="all">Tất cả danh mục</option>
+        <% Object.keys(CONFIG.categories).forEach(category => { %>
+          <option value="<%= category %>"><%= category %></option>
+        <% }); %>
+      </select>
+    </div>
+
+    <!-- Nút xóa bộ lọc -->
+    <div class="filter-group">
+      <label class="filter-label">&nbsp;</label>
+      <button class="clear-filters" id="clear-filters">
+        <i class="bi bi-x-circle"></i>
+        Xóa bộ lọc
+      </button>
+    </div>
+  </div>
+
+  <!-- Tags hiển thị bộ lọc đang áp dụng -->
+  <div class="filter-tags" id="active-filters">
+    <!-- Tags sẽ được thêm động bằng JavaScript -->
+  </div>
+</section> 

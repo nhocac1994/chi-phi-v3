@@ -1,0 +1,6281 @@
+/* Biến CSS toàn cục */
+:root {
+  /* Bảng màu sáng */
+  --primary: #6366f1;
+  --primary-light: rgba(99, 102, 241, 0.15);
+  --primary-dark: #4f46e5;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --bg-hover: #f1f5f9;
+  --card-bg: #ffffff;
+  --border-color: #e2e8f0;
+  --border-hover: #cbd5e1;
+  --input-bg: #ffffff;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #0ea5e9;
+  --chart-gradient-start: rgba(99, 102, 241, 0.8);
+  --chart-gradient-end: rgba(99, 102, 241, 0.1);
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --tooltip-bg: rgba(15, 23, 42, 0.9);
+  --tooltip-color: #f8fafc;
+  
+  /* Dark mode variables */
+  --dark-bg-primary: #0f172a;
+  --dark-bg-secondary: #1e293b;
+  --dark-bg-hover: #334155;
+  --dark-card-bg: #1e293b;
+  --dark-border-color: #334155;
+  --dark-input-bg: #0f172a;
+  --dark-text-primary: #f1f5f9;
+  --dark-text-secondary: #cbd5e1;
+  --dark-success: #34d399;
+  --dark-warning: #fbbf24;
+  --dark-danger: #f87171;
+  --dark-info: #38bdf8;
+  --dark-card-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  --dark-chart-gradient-start: rgba(99, 102, 241, 0.8);
+  --dark-chart-gradient-end: rgba(99, 102, 241, 0.1);
+
+  /* Biến cho reports - Light mode */
+  --reports-light-primary: #6366f1;
+  --reports-light-success: #10b981;
+  --reports-light-warning: #f59e0b;
+  --reports-light-danger: #ef4444;
+  --reports-light-info: #3b82f6;
+  --reports-light-bg: #f8fafc;
+  --reports-light-bg-secondary: #f1f5f9;
+  --reports-light-card-bg: #ffffff;
+  --reports-light-text: #1e293b;
+  --reports-light-text-secondary: #64748b;
+  --reports-light-border: #e2e8f0;
+  --reports-light-card-shadow: rgba(0, 0, 0, 0.08);
+  --reports-light-positive: #10b981;
+  --reports-light-negative: #ef4444;
+  
+  /* Biến cho reports - Dark mode */
+  --reports-primary: #6366f1;
+  --reports-success: #10b981;
+  --reports-warning: #f59e0b;
+  --reports-danger: #ef4444;
+  --reports-info: #3b82f6;
+  --reports-bg: #111827;
+  --reports-bg-secondary: #1f2937;
+  --reports-text: #f9fafb;
+  --reports-text-secondary: #9ca3af;
+  --reports-border: #374151;
+  --reports-card-bg: #1e293b;
+  --reports-card-shadow: rgba(0, 0, 0, 0.25);
+  --reports-positive: #10b981;
+  --reports-negative: #ef4444;
+}
+
+/* Bố cục tổng thể */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* CSS cho chế độ sáng và tối */
+body:not([data-theme="dark"]) {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+body[data-theme="dark"] {
+  background-color: var(--dark-bg-primary);
+  color: var(--dark-text-primary);
+}
+
+/* CSS cho các phần tử reports trong chế độ sáng */
+body:not([data-theme="dark"]) .reports-global-filter,
+body:not([data-theme="dark"]) .reports-filter-wrapper,
+body:not([data-theme="dark"]) .reports-section,
+body:not([data-theme="dark"]) .reports-chart-wrapper,
+body:not([data-theme="dark"]) .reports-table-container,
+body:not([data-theme="dark"]) .reports-chart-half,
+body:not([data-theme="dark"]) .reports-stat-card {
+  background-color: var(--reports-light-card-bg) !important;
+  border-color: var(--reports-light-border) !important;
+  color: var(--reports-light-text) !important;
+  box-shadow: 0 4px 12px var(--reports-light-card-shadow) !important;
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-toggle {
+  background-color: var(--reports-light-card-bg) !important;
+  color: var(--reports-light-text) !important;
+  border-color: var(--reports-light-border) !important;
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-menu {
+  background-color: var(--reports-light-card-bg) !important;
+  border-color: var(--reports-light-border) !important;
+  box-shadow: 0 4px 12px var(--reports-light-card-shadow) !important;
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item {
+  color: var(--reports-light-text) !important;
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item:hover {
+  background-color: var(--reports-light-bg-secondary) !important;
+}
+
+body:not([data-theme="dark"]) .reports-table td,
+body:not([data-theme="dark"]) .reports-table th,
+body:not([data-theme="dark"]) .reports-section-header h2,
+body:not([data-theme="dark"]) .reports-stat-value,
+body:not([data-theme="dark"]) .reports-stat-header h3 {
+  color: var(--reports-light-text) !important;
+}
+
+body:not([data-theme="dark"]) .reports-table th {
+  background-color: var(--reports-light-bg-secondary) !important;
+}
+
+body:not([data-theme="dark"]) .reports-export-btn {
+  color: var(--reports-light-text) !important;
+  border-color: var(--reports-light-border) !important;
+  background-color: var(--reports-light-bg-secondary) !important;
+}
+
+body:not([data-theme="dark"]) .reports-export-btn:hover {
+  background-color: var(--reports-light-bg) !important;
+  border-color: var(--reports-light-border) !important;
+}
+
+body:not([data-theme="dark"]) .reports-container {
+  background-color: var(--reports-light-bg) !important;
+}
+
+/* CSS cho các phần tử reports trong chế độ tối */
+[data-theme="dark"] .reports-global-filter,
+[data-theme="dark"] .reports-filter-wrapper,
+[data-theme="dark"] .reports-section,
+[data-theme="dark"] .reports-chart-wrapper,
+[data-theme="dark"] .reports-table-container,
+[data-theme="dark"] .reports-chart-half,
+[data-theme="dark"] .reports-stat-card {
+  background-color: var(--reports-card-bg) !important;
+  border-color: var(--reports-border) !important;
+  color: var(--reports-text) !important;
+  box-shadow: 0 4px 16px var(--reports-card-shadow) !important;
+}
+
+/* Chắc chắn rằng chế độ sáng luôn có màu sắc đúng */
+body:not([data-theme="dark"]) .reports-global-filter,
+body:not([data-theme="dark"]) .reports-filter-wrapper,
+body:not([data-theme="dark"]) .reports-section,
+body:not([data-theme="dark"]) .reports-chart-wrapper,
+body:not([data-theme="dark"]) .reports-table-container,
+body:not([data-theme="dark"]) .reports-chart-half,
+body:not([data-theme="dark"]) .reports-stat-card,
+body:not([data-theme="dark"]) .reports-stats-section,
+body:not([data-theme="dark"]) .reports-container {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+  box-shadow: var(--card-shadow);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-toggle {
+  background-color: var(--input-bg);
+  background-color: var(--input-bg) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-color) !important;
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-menu {
+  background-color: var(--card-bg) !important;
+  border-color: var(--border-color) !important;
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item {
+  color: var(--text-primary) !important;
+}
+
+body:not([data-theme="dark"]) .reports-table td,
+body:not([data-theme="dark"]) .reports-table th,
+body:not([data-theme="dark"]) .reports-section-header h2 {
+  color: var(--text-primary) !important;
+}
+
+body:not([data-theme="dark"]) .reports-table th {
+  background-color: var(--bg-secondary) !important;
+}
+
+/* Global Filter styles override for both modes */
+.reports-global-filter {
+  background-color: var(--reports-card-bg);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--reports-border);
+}
+
+[data-theme="dark"] .reports-global-filter {
+  background-color: var(--dark-card-bg);
+  border-color: var(--dark-border-color);
+}
+
+/* Chỉnh sửa CSS cho chế độ sáng */
+html:not([data-theme="dark"]) .reports-global-filter {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+  box-shadow: var(--card-shadow);
+}
+
+html:not([data-theme="dark"]) .reports-dropdown-toggle {
+  background-color: rgba(241, 245, 249, 0.8);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+html:not([data-theme="dark"]) .reports-dropdown-menu {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+html:not([data-theme="dark"]) .reports-dropdown-item {
+  color: var(--text-primary);
+}
+
+html:not([data-theme="dark"]) .reports-dropdown-item:hover {
+  background-color: var(--bg-hover);
+}
+
+html:not([data-theme="dark"]) .reports-section {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+}
+
+html:not([data-theme="dark"]) .reports-section-header h2 {
+  color: var(--text-primary);
+}
+
+html:not([data-theme="dark"]) .reports-chart-wrapper {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+/* Chỉnh sửa các phần chart cho chế độ sáng */
+html:not([data-theme="dark"]) .reports-chart-half {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+html:not([data-theme="dark"]) .reports-category-legend {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+.reports-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.reports-main {
+  margin-top: 2rem;
+  margin: 2rem;
+}
+
+/* Filter Styles */
+.reports-global-filter {
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 100;
+  margin: 2rem;
+}
+
+.reports-filter-wrapper {
+  background: var(--card-bg);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
+}
+
+.reports-filter-wrapper:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.reports-filters-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: space-between;
+}
+
+.reports-filter-group {
+  flex: 0 0 auto;
+  min-width: 180px;
+  width: calc(33.33% - 0.5rem);
+}
+
+/* Dropdown Styles */
+.reports-dropdown {
+  position: relative;
+}
+
+.reports-dropdown-toggle {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  background-color: rgba(31, 41, 55, 0.7);
+  color: #f9fafb;
+  border: 1px solid var(--reports-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reports-dropdown-toggle:hover {
+  border-color: var(--primary);
+}
+
+.reports-dropdown-toggle i {
+  transition: transform 0.2s ease;
+}
+
+.reports-dropdown.active .reports-dropdown-toggle {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.reports-dropdown.active .reports-dropdown-toggle i {
+  transform: rotate(180deg);
+}
+
+.reports-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  width: 100%;
+  max-height: 250px;
+  overflow-y: auto;
+  background-color: rgba(31, 41, 55, 0.9);
+  border: 1px solid rgba(55, 65, 81, 0.5);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: none;
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-menu {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-color: var(--border-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.reports-dropdown.active .reports-dropdown-menu {
+  display: block;
+  animation: dropdownFadeIn 0.2s ease;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reports-dropdown-item {
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.375rem;
+  font-size: 0.85rem;
+  margin-bottom: 0.25rem;
+  color: var(--reports-text);
+  display: flex;
+  align-items: center;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.reports-dropdown-item i {
+  margin-right: 0.5rem;
+  font-size: 0.9rem;
+  width: 18px;
+  text-align: center;
+  opacity: 0.8;
+  transition: opacity 0.15s ease;
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item {
+  color: var(--text-primary);
+}
+
+.reports-dropdown-item:hover {
+  background-color: rgba(99, 102, 241, 0.15);
+  transform: translateX(3px);
+}
+
+.reports-dropdown-item.active {
+  background-color: rgba(99, 102, 241, 0.25);
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.reports-dropdown-item.active i {
+  opacity: 1;
+  color: var(--primary);
+}
+
+/* Backdrop cho dropdown */
+.reports-dropdown-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 90;
+  display: none;
+  backdrop-filter: blur(2px);
+  transition: all 0.3s ease;
+}
+
+.dropdown-active .reports-dropdown-backdrop {
+  display: block;
+  animation: fadeIn 0.2s ease;
+}
+
+/* Custom Date Range */
+.reports-custom-date {
+  background: var(--bg-secondary);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  margin-top: 1rem;
+  border: 1px solid var(--border-color);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reports-date-inputs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.reports-date-field {
+  flex: 1;
+}
+
+.reports-date-field label {
+  display: block;
+  font-size: 0.825rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.reports-date-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  background: var(--input-bg);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.reports-date-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.reports-apply-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 5px rgba(99, 102, 241, 0.3);
+}
+
+.reports-apply-btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.4);
+}
+
+.reports-apply-btn:active {
+  transform: translateY(0);
+}
+
+/* Stats Section */
+.reports-stats-section {
+  margin-bottom: 2rem;
+}
+
+.reports-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.reports-stat-card {
+  background: var(--card-bg);
+  border-radius: 0.75rem;
+  padding: 1.2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(99, 102, 241, 0.15);
+}
+
+.reports-stat-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.reports-stat-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(99, 102, 241, 0.1);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--primary);
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+}
+
+.reports-stat-header h3 {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.reports-stat-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+[data-theme="dark"] .reports-stat-card {
+  background: var(--dark-card-bg);
+  border-color: var(--dark-border-color);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="dark"] .reports-stat-value {
+  color: var(--dark-text-primary);
+}
+
+[data-theme="dark"] .reports-stat-header h3 {
+  color: var(--dark-text-secondary);
+}
+
+/* Điều chỉnh cho section header */
+.reports-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.reports-section-header h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  position: relative;
+  padding-left: 0.75rem;
+}
+
+.reports-section-header h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 70%;
+  width: 3px;
+  background: var(--primary);
+  border-radius: 3px;
+}
+
+/* Export Buttons */
+.reports-export-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.reports-export-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
+  border-radius: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.25s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.reports-export-btn:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+}
+
+.reports-export-btn:active {
+  transform: translateY(-1px);
+}
+
+/* Chart Sections */
+.reports-chart-wrapper {
+  background: var(--dark-card-bg);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--dark-border-color);
+  height: 350px;
+  position: relative;
+}
+
+.reports-chart-wrapper canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  filter: brightness(1.05) contrast(1.05);
+}
+
+.reports-chart-grid {
+  display: flex;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  width: 100%;
+}
+
+.reports-chart-half {
+  flex: 1;
+  position: relative;
+  background: var(--card-bg);
+  border-radius: 8px;
+  padding: 1rem;
+  min-height: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reports-category-legend {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 0.5rem;
+  max-height: 400px;
+}
+
+.reports-legend-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.reports-legend-item:hover, .reports-legend-item.active {
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary);
+}
+
+.reports-legend-color {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  margin-right: 12px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.reports-legend-text {
+  flex: 1;
+}
+
+.reports-legend-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 5px;
+  color: var(--text-primary);
+}
+
+.reports-legend-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reports-legend-value {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.reports-legend-percentage {
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 600;
+  background-color: var(--primary-light);
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+/* Table Styles */
+.reports-table-container {
+  background: var(--dark-card-bg);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--dark-border-color);
+  overflow-x: auto;
+  margin-top: 1rem;
+}
+
+.reports-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.reports-table th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  background: var(--dark-bg-secondary);
+  color: var(--dark-text-primary);
+  font-weight: 600;
+  border-bottom: 1px solid var(--dark-border-color);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.reports-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(55, 65, 81, 0.5);
+  color: var(--dark-text-primary);
+}
+
+.reports-table tr:hover td {
+  background-color: var(--dark-bg-hover) !important;
+  color: var(--dark-text-primary) !important;
+}
+
+.positive-change {
+  color: var(--dark-success);
+  font-weight: 600;
+}
+
+.negative-change {
+  color: var(--dark-danger);
+  font-weight: 600;
+}
+
+.positive-change i, .negative-change i {
+  margin-right: 0.25rem;
+}
+
+/* Comparison Section */
+.reports-comparison-options {
+  background: var(--bg-secondary);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.reports-comparison-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.reports-comparison-buttons {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--card-bg);
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+}
+
+.reports-comparison-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reports-comparison-btn:hover {
+  background: var(--bg-hover);
+}
+
+.reports-comparison-btn.active {
+  background: var(--primary);
+  color: white;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .reports-main {
+    padding: 1rem;
+  }
+  
+  #detail-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    font-size: 0.9rem;
+  }
+  
+  #detail-table th,
+  #detail-table td {
+    padding: 0.75rem 0.5rem;
+  }
+  
+  .reports-stats-grid {
+    gap: 1rem;
+  }
+  
+  .reports-stat-card {
+    padding: 1.5rem;
+  }
+  
+  .reports-stat-value {
+    font-size: 1.5rem;
+  }
+  
+  .reports-section {
+    padding: 1rem;
+  }
+  
+  .reports-pagination button {
+    padding: 6px 10px;
+    min-width: 36px;
+    font-size: 0.9rem;
+  }
+}
+
+/* ===== CSS cho trang báo cáo ===== */
+
+/* Reset và cài đặt chung */
+:root {
+  --reports-primary: #6366f1;
+  --reports-success: #10b981;
+  --reports-warning: #f59e0b;
+  --reports-danger: #ef4444;
+  --reports-info: #3b82f6;
+  --reports-bg: #111827;
+  --reports-bg-secondary: #1f2937;
+  --reports-text: #f9fafb;
+  --reports-text-secondary: #9ca3af;
+  --reports-border: #374151;
+  --reports-card-bg: #1e293b;
+  --reports-card-shadow: rgba(0, 0, 0, 0.25);
+  --reports-positive: #10b981;
+  --reports-negative: #ef4444;
+}
+
+/* ===== Bộ lọc và điều khiển ===== */
+.reports-global-filter {
+  background-color: var(--reports-card-bg);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--reports-border);
+}
+
+.reports-filter-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.reports-filter-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.reports-filters-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.reports-filter-group {
+  position: relative;
+}
+
+/* Dropdown */
+.reports-dropdown {
+  position: relative;
+  min-width: 180px;
+}
+
+.reports-dropdown-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.6rem 1rem;
+  background-color: rgba(31, 41, 55, 0.7);
+  color: #f9fafb;
+  border: 1px solid var(--reports-border);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reports-dropdown-toggle:hover {
+  border-color: var(--primary);
+}
+
+.reports-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  width: 100%;
+  max-height: 250px;
+  overflow-y: auto;
+  background-color: rgba(31, 41, 55, 0.9);
+  border: 1px solid rgba(55, 65, 81, 0.5);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: none;
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-menu {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-color: var(--border-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.reports-dropdown.active .reports-dropdown-menu {
+  display: block;
+  animation: dropdownFadeIn 0.2s ease;
+}
+
+.reports-dropdown-item {
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.375rem;
+  font-size: 0.85rem;
+  margin-bottom: 0.25rem;
+  color: var(--reports-text);
+  display: flex;
+  align-items: center;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.reports-dropdown-item i {
+  margin-right: 0.5rem;
+  font-size: 0.9rem;
+  width: 18px;
+  text-align: center;
+  opacity: 0.8;
+  transition: opacity 0.15s ease;
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item {
+  color: var(--text-primary);
+}
+
+.reports-dropdown-item:hover {
+  background-color: rgba(99, 102, 241, 0.15);
+  transform: translateX(3px);
+}
+
+.reports-dropdown-item.active {
+  background-color: rgba(99, 102, 241, 0.25);
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.reports-dropdown-item.active i {
+  opacity: 1;
+  color: var(--primary);
+}
+
+/* Tùy chọn phạm vi thời gian */
+.reports-custom-date {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: var(--reports-bg-secondary);
+  border-radius: 0.5rem;
+  border: 1px solid var(--reports-border);
+}
+
+.reports-date-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.reports-date-field {
+  flex: 1;
+  min-width: 200px;
+}
+
+.reports-date-field label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--reports-text-secondary);
+}
+
+.reports-date-input {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--reports-bg);
+  color: var(--reports-text);
+  border: 1px solid var(--reports-border);
+  border-radius: 0.5rem;
+}
+
+.reports-apply-btn {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--reports-primary);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reports-apply-btn:hover {
+  background-color: #4f46e5;
+}
+
+/* ===== Nội dung chính ===== */
+.reports-main {
+  margin-top: 1rem;
+}
+
+/* Thẻ thống kê */
+.reports-stats-section {
+  margin-bottom: 2rem;
+}
+
+.reports-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.reports-stat-card {
+  background-color: var(--reports-card-bg);
+  border-radius: 0.75rem;
+  padding: 1.2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(99, 102, 241, 0.15);
+}
+
+.reports-stat-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.reports-stat-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(99, 102, 241, 0.1);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--primary);
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+}
+
+.reports-stat-header h3 {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.reports-stat-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* Phần báo cáo */
+.reports-section {
+  margin-bottom: 3rem;
+  background-color: var(--reports-card-bg);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px var(--reports-card-shadow);
+  animation: fadeIn 0.3s ease;
+}
+
+.reports-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--reports-border);
+}
+
+.reports-section-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  position: relative;
+  padding-left: 0.75rem;
+}
+
+.reports-section-header h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+.reports-export-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.reports-export-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
+  border-radius: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.25s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.reports-export-btn:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+}
+
+.reports-export-btn:active {
+  transform: translateY(-1px);
+}
+
+/* Chart Sections */
+.reports-chart-wrapper {
+  background: var(--card-bg);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  height: 350px;
+  position: relative;
+}
+
+.reports-chart-wrapper canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+
+.reports-chart-grid {
+  display: flex;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  width: 100%;
+}
+
+.reports-chart-half {
+  flex: 1;
+  position: relative;
+  background: var(--card-bg);
+  border-radius: 8px;
+  padding: 1rem;
+  min-height: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reports-category-legend {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 0.5rem;
+  max-height: 400px;
+}
+
+.reports-legend-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.reports-legend-item:hover, .reports-legend-item.active {
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary);
+}
+
+.reports-legend-color {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  margin-right: 12px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.reports-legend-text {
+  flex: 1;
+}
+
+.reports-legend-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 5px;
+  color: var(--text-primary);
+}
+
+.reports-legend-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reports-legend-value {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.reports-legend-percentage {
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 600;
+  background-color: var(--primary-light);
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+/* Table Styles */
+.reports-table-container {
+  background: var(--card-bg);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  overflow-x: auto;
+  margin-top: 1.5rem;
+}
+
+.reports-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.reports-table th {
+  text-align: left;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-weight: 600;
+  border-bottom: 2px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-table tr:hover td {
+  background: var(--bg-hover);
+}
+
+.positive-change {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.negative-change {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.positive-change i, .negative-change i {
+  margin-right: 0.25rem;
+}
+
+/* Comparison Section */
+.reports-comparison-options {
+  background: var(--bg-secondary);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.reports-comparison-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.reports-comparison-buttons {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--card-bg);
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+}
+
+.reports-comparison-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reports-comparison-btn:hover {
+  background: var(--bg-hover);
+}
+
+.reports-comparison-btn.active {
+  background: var(--primary);
+  color: white;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .reports-chart-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .reports-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+/* Sửa lỗi hiển thị trong chế độ sáng */
+/* Ghi đè các CSS từ ":root" cho light mode */
+body:not([data-theme="dark"]) .reports-stats-section,
+body:not([data-theme="dark"]) .reports-stat-card {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+}
+
+body:not([data-theme="dark"]) .reports-global-filter {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+  box-shadow: var(--card-shadow);
+}
+
+body:not([data-theme="dark"]) .reports-filter-wrapper {
+  background-color: var(--card-bg);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-toggle {
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-menu {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item {
+  color: var(--text-primary);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item:hover {
+  background-color: var(--bg-hover);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item.active {
+  background-color: var(--primary-light);
+  color: var(--primary);
+}
+
+body:not([data-theme="dark"]) .reports-section {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-section-header h2 {
+  color: var(--text-primary);
+}
+
+body:not([data-theme="dark"]) .reports-chart-wrapper {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-chart-half {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-category-legend {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-table-container {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-table th {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-table td {
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-legend-item {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+/* Thêm reset style cho Global Filter */
+.reports-global-filter {
+  background-color: var(--card-bg); /* mặc định light mode */
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 100;
+  box-shadow: var(--card-shadow);
+}
+
+[data-theme="dark"] .reports-global-filter {
+  background-color: var(--dark-card-bg);
+  border-color: var(--dark-border-color);
+}
+
+/* Reset dropdown styles cho cả hai chế độ */
+.reports-dropdown-toggle {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  background-color: rgba(31, 41, 55, 0.7);
+  color: #f9fafb;
+  border: 1px solid var(--reports-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Sửa các thuộc tính CSS cho phần category-legend scroll */
+.reports-category-legend {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 0.5rem;
+}
+
+.reports-category-legend::-webkit-scrollbar {
+  width: 6px;
+}
+
+.reports-category-legend::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 8px;
+}
+
+.reports-category-legend::-webkit-scrollbar-thumb {
+  background: var(--primary-light);
+  border-radius: 8px;
+}
+
+.reports-category-legend::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+[data-theme="dark"] .reports-category-legend::-webkit-scrollbar-track {
+  background: var(--dark-bg-secondary);
+}
+
+[data-theme="dark"] .reports-category-legend::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.3);
+}
+
+[data-theme="dark"] .reports-category-legend::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.5);
+}
+
+/* Sửa lỗi hiển thị biểu đồ và bảng */
+#time-chart, #category-chart, #comparison-chart {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 300px;
+  display: block !important;
+  max-width: 100%;
+  position: relative;
+}
+
+.reports-chart-wrapper.loading, .reports-table-container.loading {
+  position: relative;
+  min-height: 150px;
+}
+
+.reports-chart-wrapper.loading::after, .reports-table-container.loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.reports-chart-wrapper.loading::before, .reports-table-container.loading::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  margin-left: -20px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  z-index: 11;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Report Sections */
+.reports-section {
+  background: var(--dark-card-bg);
+  border-radius: 0.75rem;
+  padding: 1.2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--dark-border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-section:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.reports-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.8rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.reports-section-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.reports-section-header h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+/* Export Buttons */
+.reports-export-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.reports-export-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background: rgba(31, 41, 55, 0.7);
+  border: 1px solid rgba(55, 65, 81, 0.6);
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #f9fafb;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reports-export-btn:hover {
+  background: var(--reports-primary);
+  border-color: var(--reports-primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+}
+
+.reports-export-btn:active {
+  transform: translateY(-1px);
+}
+
+/* Chart Sections */
+.reports-chart-wrapper {
+  background: var(--card-bg);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  height: 350px;
+  position: relative;
+}
+
+.reports-chart-wrapper canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+
+.reports-chart-grid {
+  display: flex;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  width: 100%;
+}
+
+.reports-chart-half {
+  flex: 1;
+  position: relative;
+  background: var(--card-bg);
+  border-radius: 8px;
+  padding: 1rem;
+  min-height: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reports-category-legend {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 0.5rem;
+  max-height: 400px;
+}
+
+.reports-legend-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.reports-legend-item:hover, .reports-legend-item.active {
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary);
+}
+
+.reports-legend-color {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  margin-right: 12px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.reports-legend-text {
+  flex: 1;
+}
+
+.reports-legend-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 5px;
+  color: var(--text-primary);
+}
+
+.reports-legend-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reports-legend-value {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.reports-legend-percentage {
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 600;
+  background-color: var(--primary-light);
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+/* Table Styles */
+.reports-table-container {
+  background: var(--card-bg);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  overflow-x: auto;
+  margin-top: 1.5rem;
+}
+
+.reports-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.reports-table th {
+  text-align: left;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-weight: 600;
+  border-bottom: 2px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-table tr:hover td {
+  background: var(--bg-hover);
+}
+
+.positive-change {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.negative-change {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.positive-change i, .negative-change i {
+  margin-right: 0.25rem;
+}
+
+/* Comparison Section */
+.reports-comparison-options {
+  background: var(--bg-secondary);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.reports-comparison-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.reports-comparison-buttons {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--card-bg);
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+}
+
+.reports-comparison-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reports-comparison-btn:hover {
+  background: var(--bg-hover);
+}
+
+.reports-comparison-btn.active {
+  background: var(--primary);
+  color: white;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .reports-chart-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .reports-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+/* Sửa lỗi hiển thị trong chế độ sáng */
+/* Ghi đè các CSS từ ":root" cho light mode */
+body:not([data-theme="dark"]) .reports-stats-section,
+body:not([data-theme="dark"]) .reports-stat-card {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+}
+
+body:not([data-theme="dark"]) .reports-global-filter {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+  box-shadow: var(--card-shadow);
+}
+
+body:not([data-theme="dark"]) .reports-filter-wrapper {
+  background-color: var(--card-bg);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-toggle {
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-menu {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item {
+  color: var(--text-primary);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item:hover {
+  background-color: var(--bg-hover);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item.active {
+  background-color: var(--primary-light);
+  color: var(--primary);
+}
+
+body:not([data-theme="dark"]) .reports-section {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-section-header h2 {
+  color: var(--text-primary);
+}
+
+body:not([data-theme="dark"]) .reports-chart-wrapper {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-chart-half {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-category-legend {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-table-container {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-table th {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-table td {
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-legend-item {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+/* Thêm reset style cho Global Filter */
+.reports-global-filter {
+  background-color: var(--card-bg); /* mặc định light mode */
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 100;
+  box-shadow: var(--card-shadow);
+}
+
+[data-theme="dark"] .reports-global-filter {
+  background-color: var(--dark-card-bg);
+  border-color: var(--dark-border-color);
+}
+
+/* Reset dropdown styles cho cả hai chế độ */
+.reports-dropdown-toggle {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  background-color: rgba(31, 41, 55, 0.7);
+  color: #f9fafb;
+  border: 1px solid var(--reports-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Sửa các thuộc tính CSS cho phần category-legend scroll */
+.reports-category-legend {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 0.5rem;
+}
+
+.reports-category-legend::-webkit-scrollbar {
+  width: 6px;
+}
+
+.reports-category-legend::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 8px;
+}
+
+.reports-category-legend::-webkit-scrollbar-thumb {
+  background: var(--primary-light);
+  border-radius: 8px;
+}
+
+.reports-category-legend::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+[data-theme="dark"] .reports-category-legend::-webkit-scrollbar-track {
+  background: var(--dark-bg-secondary);
+}
+
+[data-theme="dark"] .reports-category-legend::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.3);
+}
+
+[data-theme="dark"] .reports-category-legend::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.5);
+}
+
+/* Sửa lỗi hiển thị biểu đồ và bảng */
+#time-chart, #category-chart, #comparison-chart {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 300px;
+  display: block !important;
+  max-width: 100%;
+  position: relative;
+}
+
+.reports-chart-wrapper.loading, .reports-table-container.loading {
+  position: relative;
+  min-height: 150px;
+}
+
+.reports-chart-wrapper.loading::after, .reports-table-container.loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.reports-chart-wrapper.loading::before, .reports-table-container.loading::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  margin-left: -20px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  z-index: 11;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Report Sections */
+.reports-section {
+  background: var(--dark-card-bg);
+  border-radius: 0.75rem;
+  padding: 1.2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--dark-border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-section:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.reports-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.8rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.reports-section-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.reports-section-header h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+/* Export Buttons */
+.reports-export-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.reports-export-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background: rgba(31, 41, 55, 0.7);
+  border: 1px solid rgba(55, 65, 81, 0.6);
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #f9fafb;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reports-export-btn:hover {
+  background: var(--reports-primary);
+  border-color: var(--reports-primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+}
+
+.reports-export-btn:active {
+  transform: translateY(-1px);
+}
+
+/* Chart Sections */
+.reports-chart-wrapper {
+  background: var(--card-bg);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  height: 350px;
+  position: relative;
+}
+
+.reports-chart-wrapper canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+
+.reports-chart-grid {
+  display: flex;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  width: 100%;
+}
+
+.reports-chart-half {
+  flex: 1;
+  position: relative;
+  background: var(--card-bg);
+  border-radius: 8px;
+  padding: 1rem;
+  min-height: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reports-category-legend {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 0.5rem;
+  max-height: 400px;
+}
+
+.reports-legend-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.reports-legend-item:hover, .reports-legend-item.active {
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary);
+}
+
+.reports-legend-color {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  margin-right: 12px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.reports-legend-text {
+  flex: 1;
+}
+
+.reports-legend-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 5px;
+  color: var(--text-primary);
+}
+
+.reports-legend-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reports-legend-value {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.reports-legend-percentage {
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 600;
+  background-color: var(--primary-light);
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+/* Table Styles */
+.reports-table-container {
+  background: var(--card-bg);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  overflow-x: auto;
+  margin-top: 1.5rem;
+}
+
+.reports-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.reports-table th {
+  text-align: left;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-weight: 600;
+  border-bottom: 2px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-table tr:hover td {
+  background: var(--bg-hover);
+}
+
+.positive-change {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.negative-change {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.positive-change i, .negative-change i {
+  margin-right: 0.25rem;
+}
+
+/* Comparison Section */
+.reports-comparison-options {
+  background: var(--bg-secondary);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.reports-comparison-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.reports-comparison-buttons {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--card-bg);
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+}
+
+.reports-comparison-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reports-comparison-btn:hover {
+  background: var(--bg-hover);
+}
+
+.reports-comparison-btn.active {
+  background: var(--primary);
+  color: white;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .reports-chart-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .reports-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+/* Sửa lỗi hiển thị trong chế độ sáng */
+/* Ghi đè các CSS từ ":root" cho light mode */
+body:not([data-theme="dark"]) .reports-stats-section,
+body:not([data-theme="dark"]) .reports-stat-card {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+}
+
+body:not([data-theme="dark"]) .reports-global-filter {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+  box-shadow: var(--card-shadow);
+}
+
+body:not([data-theme="dark"]) .reports-filter-wrapper {
+  background-color: var(--card-bg);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-toggle {
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-menu {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item {
+  color: var(--text-primary);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item:hover {
+  background-color: var(--bg-hover);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item.active {
+  background-color: var(--primary-light);
+  color: var(--primary);
+}
+
+body:not([data-theme="dark"]) .reports-section {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-section-header h2 {
+  color: var(--text-primary);
+}
+
+body:not([data-theme="dark"]) .reports-chart-wrapper {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-chart-half {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-category-legend {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-table-container {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-table th {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-table td {
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-legend-item {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+/* Thêm reset style cho Global Filter */
+.reports-global-filter {
+  background-color: var(--card-bg); /* mặc định light mode */
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 100;
+  box-shadow: var(--card-shadow);
+}
+
+[data-theme="dark"] .reports-global-filter {
+  background-color: var(--dark-card-bg);
+  border-color: var(--dark-border-color);
+}
+
+/* Reset dropdown styles cho cả hai chế độ */
+.reports-dropdown-toggle {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  background-color: rgba(31, 41, 55, 0.7);
+  color: #f9fafb;
+  border: 1px solid var(--reports-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Sửa các thuộc tính CSS cho phần category-legend scroll */
+.reports-category-legend {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 0.5rem;
+}
+
+.reports-category-legend::-webkit-scrollbar {
+  width: 6px;
+}
+
+.reports-category-legend::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 8px;
+}
+
+.reports-category-legend::-webkit-scrollbar-thumb {
+  background: var(--primary-light);
+  border-radius: 8px;
+}
+
+.reports-category-legend::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+[data-theme="dark"] .reports-category-legend::-webkit-scrollbar-track {
+  background: var(--dark-bg-secondary);
+}
+
+[data-theme="dark"] .reports-category-legend::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.3);
+}
+
+[data-theme="dark"] .reports-category-legend::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.5);
+}
+
+/* Sửa lỗi hiển thị biểu đồ và bảng */
+#time-chart, #category-chart, #comparison-chart {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 300px;
+  display: block !important;
+  max-width: 100%;
+  position: relative;
+}
+
+.reports-chart-wrapper.loading, .reports-table-container.loading {
+  position: relative;
+  min-height: 150px;
+}
+
+.reports-chart-wrapper.loading::after, .reports-table-container.loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.reports-chart-wrapper.loading::before, .reports-table-container.loading::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  margin-left: -20px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  z-index: 11;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Report Sections */
+.reports-section {
+  background: var(--dark-card-bg);
+  border-radius: 0.75rem;
+  padding: 1.2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--dark-border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-section:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.reports-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.8rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.reports-section-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.reports-section-header h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+/* Export Buttons */
+.reports-export-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.reports-export-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background: rgba(31, 41, 55, 0.7);
+  border: 1px solid rgba(55, 65, 81, 0.6);
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #f9fafb;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reports-export-btn:hover {
+  background: var(--reports-primary);
+  border-color: var(--reports-primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+}
+
+.reports-export-btn:active {
+  transform: translateY(-1px);
+}
+
+/* Chart Sections */
+.reports-chart-wrapper {
+  background: var(--card-bg);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  height: 350px;
+  position: relative;
+}
+
+.reports-chart-wrapper canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+
+.reports-chart-grid {
+  display: flex;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  width: 100%;
+}
+
+.reports-chart-half {
+  flex: 1;
+  position: relative;
+  background: var(--card-bg);
+  border-radius: 8px;
+  padding: 1rem;
+  min-height: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reports-category-legend {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 0.5rem;
+  max-height: 400px;
+}
+
+.reports-legend-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.reports-legend-item:hover, .reports-legend-item.active {
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary);
+}
+
+.reports-legend-color {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  margin-right: 12px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.reports-legend-text {
+  flex: 1;
+}
+
+.reports-legend-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 5px;
+  color: var(--text-primary);
+}
+
+.reports-legend-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reports-legend-value {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.reports-legend-percentage {
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 600;
+  background-color: var(--primary-light);
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+/* Table Styles */
+.reports-table-container {
+  background: var(--card-bg);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  overflow-x: auto;
+  margin-top: 1.5rem;
+}
+
+.reports-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.reports-table th {
+  text-align: left;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-weight: 600;
+  border-bottom: 2px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-table tr:hover td {
+  background: var(--bg-hover);
+}
+
+.positive-change {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.negative-change {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.positive-change i, .negative-change i {
+  margin-right: 0.25rem;
+}
+
+/* Comparison Section */
+.reports-comparison-options {
+  background: var(--bg-secondary);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.reports-comparison-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.reports-comparison-buttons {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--card-bg);
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+}
+
+.reports-comparison-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reports-comparison-btn:hover {
+  background: var(--bg-hover);
+}
+
+.reports-comparison-btn.active {
+  background: var(--primary);
+  color: white;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .reports-chart-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .reports-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+/* Sửa lỗi hiển thị trong chế độ sáng */
+/* Ghi đè các CSS từ ":root" cho light mode */
+body:not([data-theme="dark"]) .reports-stats-section,
+body:not([data-theme="dark"]) .reports-stat-card {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+}
+
+body:not([data-theme="dark"]) .reports-global-filter {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+  box-shadow: var(--card-shadow);
+}
+
+body:not([data-theme="dark"]) .reports-filter-wrapper {
+  background-color: var(--card-bg);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-toggle {
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-menu {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item {
+  color: var(--text-primary);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item:hover {
+  background-color: var(--bg-hover);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item.active {
+  background-color: var(--primary-light);
+  color: var(--primary);
+}
+
+body:not([data-theme="dark"]) .reports-section {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-section-header h2 {
+  color: var(--text-primary);
+}
+
+body:not([data-theme="dark"]) .reports-chart-wrapper {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-chart-half {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-category-legend {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-table-container {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-table th {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-table td {
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-legend-item {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+/* Thêm reset style cho Global Filter */
+.reports-global-filter {
+  background-color: var(--card-bg); /* mặc định light mode */
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 100;
+  box-shadow: var(--card-shadow);
+}
+
+[data-theme="dark"] .reports-global-filter {
+  background-color: var(--dark-card-bg);
+  border-color: var(--dark-border-color);
+}
+
+/* Reset dropdown styles cho cả hai chế độ */
+.reports-dropdown-toggle {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  background-color: rgba(31, 41, 55, 0.7);
+  color: #f9fafb;
+  border: 1px solid var(--reports-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Sửa các thuộc tính CSS cho phần category-legend scroll */
+.reports-category-legend {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 0.5rem;
+}
+
+.reports-category-legend::-webkit-scrollbar {
+  width: 6px;
+}
+
+.reports-category-legend::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 8px;
+}
+
+.reports-category-legend::-webkit-scrollbar-thumb {
+  background: var(--primary-light);
+  border-radius: 8px;
+}
+
+.reports-category-legend::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+[data-theme="dark"] .reports-category-legend::-webkit-scrollbar-track {
+  background: var(--dark-bg-secondary);
+}
+
+[data-theme="dark"] .reports-category-legend::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.3);
+}
+
+[data-theme="dark"] .reports-category-legend::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.5);
+}
+
+/* Sửa lỗi hiển thị biểu đồ và bảng */
+#time-chart, #category-chart, #comparison-chart {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 300px;
+  display: block !important;
+  max-width: 100%;
+  position: relative;
+}
+
+.reports-chart-wrapper.loading, .reports-table-container.loading {
+  position: relative;
+  min-height: 150px;
+}
+
+.reports-chart-wrapper.loading::after, .reports-table-container.loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.reports-chart-wrapper.loading::before, .reports-table-container.loading::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  margin-left: -20px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  z-index: 11;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Report Sections */
+.reports-section {
+  background: var(--dark-card-bg);
+  border-radius: 0.75rem;
+  padding: 1.2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--dark-border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-section:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.reports-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.8rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.reports-section-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.reports-section-header h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+/* Export Buttons */
+.reports-export-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.reports-export-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background: rgba(31, 41, 55, 0.7);
+  border: 1px solid rgba(55, 65, 81, 0.6);
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #f9fafb;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reports-export-btn:hover {
+  background: var(--reports-primary);
+  border-color: var(--reports-primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+}
+
+.reports-export-btn:active {
+  transform: translateY(-1px);
+}
+
+/* Chart Sections */
+.reports-chart-wrapper {
+  background: var(--card-bg);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  height: 350px;
+  position: relative;
+}
+
+.reports-chart-wrapper canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+
+.reports-chart-grid {
+  display: flex;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  width: 100%;
+}
+
+.reports-chart-half {
+  flex: 1;
+  position: relative;
+  background: var(--card-bg);
+  border-radius: 8px;
+  padding: 1rem;
+  min-height: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reports-category-legend {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 0.5rem;
+  max-height: 400px;
+}
+
+.reports-legend-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.reports-legend-item:hover, .reports-legend-item.active {
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary);
+}
+
+.reports-legend-color {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  margin-right: 12px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.reports-legend-text {
+  flex: 1;
+}
+
+.reports-legend-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 5px;
+  color: var(--text-primary);
+}
+
+.reports-legend-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reports-legend-value {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.reports-legend-percentage {
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 600;
+  background-color: var(--primary-light);
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+/* Table Styles */
+.reports-table-container {
+  background: var(--card-bg);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  overflow-x: auto;
+  margin-top: 1.5rem;
+}
+
+.reports-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.reports-table th {
+  text-align: left;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-weight: 600;
+  border-bottom: 2px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-table tr:hover td {
+  background: var(--bg-hover);
+}
+
+.positive-change {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.negative-change {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.positive-change i, .negative-change i {
+  margin-right: 0.25rem;
+}
+
+/* Comparison Section */
+.reports-comparison-options {
+  background: var(--bg-secondary);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.reports-comparison-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.reports-comparison-buttons {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--card-bg);
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+}
+
+.reports-comparison-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reports-comparison-btn:hover {
+  background: var(--bg-hover);
+}
+
+.reports-comparison-btn.active {
+  background: var(--primary);
+  color: white;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .reports-chart-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .reports-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+/* Sửa lỗi hiển thị trong chế độ sáng */
+/* Ghi đè các CSS từ ":root" cho light mode */
+body:not([data-theme="dark"]) .reports-stats-section,
+body:not([data-theme="dark"]) .reports-stat-card {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+}
+
+body:not([data-theme="dark"]) .reports-global-filter {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+  box-shadow: var(--card-shadow);
+}
+
+body:not([data-theme="dark"]) .reports-filter-wrapper {
+  background-color: var(--card-bg);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-toggle {
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-menu {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item {
+  color: var(--text-primary);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item:hover {
+  background-color: var(--bg-hover);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item.active {
+  background-color: var(--primary-light);
+  color: var(--primary);
+}
+
+body:not([data-theme="dark"]) .reports-section {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-section-header h2 {
+  color: var(--text-primary);
+}
+
+body:not([data-theme="dark"]) .reports-chart-wrapper {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-chart-half {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-category-legend {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-table-container {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-table th {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-table td {
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-legend-item {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+/* Thêm reset style cho Global Filter */
+.reports-global-filter {
+  background-color: var(--card-bg); /* mặc định light mode */
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 100;
+  box-shadow: var(--card-shadow);
+}
+
+[data-theme="dark"] .reports-global-filter {
+  background-color: var(--dark-card-bg);
+  border-color: var(--dark-border-color);
+}
+
+/* Reset dropdown styles cho cả hai chế độ */
+.reports-dropdown-toggle {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  background-color: rgba(31, 41, 55, 0.7);
+  color: #f9fafb;
+  border: 1px solid var(--reports-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Sửa các thuộc tính CSS cho phần category-legend scroll */
+.reports-category-legend {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 0.5rem;
+}
+
+.reports-category-legend::-webkit-scrollbar {
+  width: 6px;
+}
+
+.reports-category-legend::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 8px;
+}
+
+.reports-category-legend::-webkit-scrollbar-thumb {
+  background: var(--primary-light);
+  border-radius: 8px;
+}
+
+.reports-category-legend::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+[data-theme="dark"] .reports-category-legend::-webkit-scrollbar-track {
+  background: var(--dark-bg-secondary);
+}
+
+[data-theme="dark"] .reports-category-legend::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.3);
+}
+
+[data-theme="dark"] .reports-category-legend::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.5);
+}
+
+/* Sửa lỗi hiển thị biểu đồ và bảng */
+#time-chart, #category-chart, #comparison-chart {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 300px;
+  display: block !important;
+  max-width: 100%;
+  position: relative;
+}
+
+.reports-chart-wrapper.loading, .reports-table-container.loading {
+  position: relative;
+  min-height: 150px;
+}
+
+.reports-chart-wrapper.loading::after, .reports-table-container.loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.reports-chart-wrapper.loading::before, .reports-table-container.loading::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  margin-left: -20px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  z-index: 11;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Report Sections */
+.reports-section {
+  background: var(--dark-card-bg);
+  border-radius: 0.75rem;
+  padding: 1.2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--dark-border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-section:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.reports-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.8rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.reports-section-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.reports-section-header h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+/* Export Buttons */
+.reports-export-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.reports-export-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background: rgba(31, 41, 55, 0.7);
+  border: 1px solid rgba(55, 65, 81, 0.6);
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #f9fafb;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reports-export-btn:hover {
+  background: var(--reports-primary);
+  border-color: var(--reports-primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+}
+
+.reports-export-btn:active {
+  transform: translateY(-1px);
+}
+
+/* Chart Sections */
+.reports-chart-wrapper {
+  background: var(--card-bg);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  height: 350px;
+  position: relative;
+}
+
+.reports-chart-wrapper canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+
+.reports-chart-grid {
+  display: flex;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  width: 100%;
+}
+
+.reports-chart-half {
+  flex: 1;
+  position: relative;
+  background: var(--card-bg);
+  border-radius: 8px;
+  padding: 1rem;
+  min-height: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reports-category-legend {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 0.5rem;
+  max-height: 400px;
+}
+
+.reports-legend-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.reports-legend-item:hover, .reports-legend-item.active {
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary);
+}
+
+.reports-legend-color {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  margin-right: 12px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.reports-legend-text {
+  flex: 1;
+}
+
+.reports-legend-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 5px;
+  color: var(--text-primary);
+}
+
+.reports-legend-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reports-legend-value {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.reports-legend-percentage {
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 600;
+  background-color: var(--primary-light);
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+/* Table Styles */
+.reports-table-container {
+  background: var(--card-bg);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  overflow-x: auto;
+  margin-top: 1.5rem;
+}
+
+.reports-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.reports-table th {
+  text-align: left;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-weight: 600;
+  border-bottom: 2px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-table tr:hover td {
+  background: var(--bg-hover);
+}
+
+.positive-change {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.negative-change {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.positive-change i, .negative-change i {
+  margin-right: 0.25rem;
+}
+
+/* Comparison Section */
+.reports-comparison-options {
+  background: var(--bg-secondary);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.reports-comparison-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.reports-comparison-buttons {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--card-bg);
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+}
+
+.reports-comparison-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reports-comparison-btn:hover {
+  background: var(--bg-hover);
+}
+
+.reports-comparison-btn.active {
+  background: var(--primary);
+  color: white;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .reports-chart-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .reports-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+/* Sửa lỗi hiển thị trong chế độ sáng */
+/* Ghi đè các CSS từ ":root" cho light mode */
+body:not([data-theme="dark"]) .reports-stats-section,
+body:not([data-theme="dark"]) .reports-stat-card {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+}
+
+body:not([data-theme="dark"]) .reports-global-filter {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+  box-shadow: var(--card-shadow);
+}
+
+body:not([data-theme="dark"]) .reports-filter-wrapper {
+  background-color: var(--card-bg);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-toggle {
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-menu {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item {
+  color: var(--text-primary);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item:hover {
+  background-color: var(--bg-hover);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item.active {
+  background-color: var(--primary-light);
+  color: var(--primary);
+}
+
+body:not([data-theme="dark"]) .reports-section {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-section-header h2 {
+  color: var(--text-primary);
+}
+
+body:not([data-theme="dark"]) .reports-chart-wrapper {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-chart-half {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-category-legend {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-table-container {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-table th {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-table td {
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-legend-item {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+/* Thêm reset style cho Global Filter */
+.reports-global-filter {
+  background-color: var(--card-bg); /* mặc định light mode */
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 100;
+  box-shadow: var(--card-shadow);
+}
+
+[data-theme="dark"] .reports-global-filter {
+  background-color: var(--dark-card-bg);
+  border-color: var(--dark-border-color);
+}
+
+/* Reset dropdown styles cho cả hai chế độ */
+.reports-dropdown-toggle {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  background-color: rgba(31, 41, 55, 0.7);
+  color: #f9fafb;
+  border: 1px solid var(--reports-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Sửa các thuộc tính CSS cho phần category-legend scroll */
+.reports-category-legend {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 0.5rem;
+}
+
+.reports-category-legend::-webkit-scrollbar {
+  width: 6px;
+}
+
+.reports-category-legend::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 8px;
+}
+
+.reports-category-legend::-webkit-scrollbar-thumb {
+  background: var(--primary-light);
+  border-radius: 8px;
+}
+
+.reports-category-legend::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+[data-theme="dark"] .reports-category-legend::-webkit-scrollbar-track {
+  background: var(--dark-bg-secondary);
+}
+
+[data-theme="dark"] .reports-category-legend::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.3);
+}
+
+[data-theme="dark"] .reports-category-legend::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.5);
+}
+
+/* Sửa lỗi hiển thị biểu đồ và bảng */
+#time-chart, #category-chart, #comparison-chart {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 300px;
+  display: block !important;
+  max-width: 100%;
+  position: relative;
+}
+
+.reports-chart-wrapper.loading, .reports-table-container.loading {
+  position: relative;
+  min-height: 150px;
+}
+
+.reports-chart-wrapper.loading::after, .reports-table-container.loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.reports-chart-wrapper.loading::before, .reports-table-container.loading::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  margin-left: -20px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  z-index: 11;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Report Sections */
+.reports-section {
+  background: var(--dark-card-bg);
+  border-radius: 0.75rem;
+  padding: 1.2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--dark-border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-section:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.reports-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.8rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.reports-section-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.reports-section-header h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+/* Export Buttons */
+.reports-export-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.reports-export-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background: rgba(31, 41, 55, 0.7);
+  border: 1px solid rgba(55, 65, 81, 0.6);
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #f9fafb;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reports-export-btn:hover {
+  background: var(--reports-primary);
+  border-color: var(--reports-primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+}
+
+.reports-export-btn:active {
+  transform: translateY(-1px);
+}
+
+/* Chart Sections */
+.reports-chart-wrapper {
+  background: var(--card-bg);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  height: 350px;
+  position: relative;
+}
+
+.reports-chart-wrapper canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+
+.reports-chart-grid {
+  display: flex;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  width: 100%;
+}
+
+.reports-chart-half {
+  flex: 1;
+  position: relative;
+  background: var(--card-bg);
+  border-radius: 8px;
+  padding: 1rem;
+  min-height: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reports-category-legend {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 0.5rem;
+  max-height: 400px;
+}
+
+.reports-legend-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.reports-legend-item:hover, .reports-legend-item.active {
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary);
+}
+
+.reports-legend-color {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  margin-right: 12px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.reports-legend-text {
+  flex: 1;
+}
+
+.reports-legend-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 5px;
+  color: var(--text-primary);
+}
+
+.reports-legend-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reports-legend-value {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.reports-legend-percentage {
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 600;
+  background-color: var(--primary-light);
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+/* Table Styles */
+.reports-table-container {
+  background: var(--card-bg);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  overflow-x: auto;
+  margin-top: 1.5rem;
+}
+
+.reports-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.reports-table th {
+  text-align: left;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-weight: 600;
+  border-bottom: 2px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-table tr:hover td {
+  background: var(--bg-hover);
+}
+
+.positive-change {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.negative-change {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.positive-change i, .negative-change i {
+  margin-right: 0.25rem;
+}
+
+/* Comparison Section */
+.reports-comparison-options {
+  background: var(--bg-secondary);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.reports-comparison-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.reports-comparison-buttons {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--card-bg);
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+}
+
+.reports-comparison-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reports-comparison-btn:hover {
+  background: var(--bg-hover);
+}
+
+.reports-comparison-btn.active {
+  background: var(--primary);
+  color: white;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .reports-chart-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .reports-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+/* Sửa lỗi hiển thị trong chế độ sáng */
+/* Ghi đè các CSS từ ":root" cho light mode */
+body:not([data-theme="dark"]) .reports-stats-section,
+body:not([data-theme="dark"]) .reports-stat-card {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+}
+
+body:not([data-theme="dark"]) .reports-global-filter {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+  box-shadow: var(--card-shadow);
+}
+
+body:not([data-theme="dark"]) .reports-filter-wrapper {
+  background-color: var(--card-bg);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-toggle {
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-menu {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item {
+  color: var(--text-primary);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item:hover {
+  background-color: var(--bg-hover);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item.active {
+  background-color: var(--primary-light);
+  color: var(--primary);
+}
+
+body:not([data-theme="dark"]) .reports-section {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-section-header h2 {
+  color: var(--text-primary);
+}
+
+body:not([data-theme="dark"]) .reports-chart-wrapper {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-chart-half {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-category-legend {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-table-container {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-table th {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-table td {
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-legend-item {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+/* Thêm reset style cho Global Filter */
+.reports-global-filter {
+  background-color: var(--card-bg); /* mặc định light mode */
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 100;
+  box-shadow: var(--card-shadow);
+}
+
+[data-theme="dark"] .reports-global-filter {
+  background-color: var(--dark-card-bg);
+  border-color: var(--dark-border-color);
+}
+
+/* Reset dropdown styles cho cả hai chế độ */
+.reports-dropdown-toggle {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  background-color: rgba(31, 41, 55, 0.7);
+  color: #f9fafb;
+  border: 1px solid var(--reports-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Sửa các thuộc tính CSS cho phần category-legend scroll */
+.reports-category-legend {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 0.5rem;
+}
+
+.reports-category-legend::-webkit-scrollbar {
+  width: 6px;
+}
+
+.reports-category-legend::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 8px;
+}
+
+.reports-category-legend::-webkit-scrollbar-thumb {
+  background: var(--primary-light);
+  border-radius: 8px;
+}
+
+.reports-category-legend::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+[data-theme="dark"] .reports-category-legend::-webkit-scrollbar-track {
+  background: var(--dark-bg-secondary);
+}
+
+[data-theme="dark"] .reports-category-legend::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.3);
+}
+
+[data-theme="dark"] .reports-category-legend::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.5);
+}
+
+/* Sửa lỗi hiển thị biểu đồ và bảng */
+#time-chart, #category-chart, #comparison-chart {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 300px;
+  display: block !important;
+  max-width: 100%;
+  position: relative;
+}
+
+.reports-chart-wrapper.loading, .reports-table-container.loading {
+  position: relative;
+  min-height: 150px;
+}
+
+.reports-chart-wrapper.loading::after, .reports-table-container.loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.reports-chart-wrapper.loading::before, .reports-table-container.loading::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  margin-left: -20px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  z-index: 11;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Report Sections */
+.reports-section {
+  background: var(--dark-card-bg);
+  border-radius: 0.75rem;
+  padding: 1.2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--dark-border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-section:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.reports-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.8rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.reports-section-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.reports-section-header h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+/* Export Buttons */
+.reports-export-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.reports-export-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background: rgba(31, 41, 55, 0.7);
+  border: 1px solid rgba(55, 65, 81, 0.6);
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #f9fafb;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reports-export-btn:hover {
+  background: var(--reports-primary);
+  border-color: var(--reports-primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+}
+
+.reports-export-btn:active {
+  transform: translateY(-1px);
+}
+
+/* Chart Sections */
+.reports-chart-wrapper {
+  background: var(--card-bg);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  height: 350px;
+  position: relative;
+}
+
+.reports-chart-wrapper canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+
+.reports-chart-grid {
+  display: flex;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  width: 100%;
+}
+
+.reports-chart-half {
+  flex: 1;
+  position: relative;
+  background: var(--card-bg);
+  border-radius: 8px;
+  padding: 1rem;
+  min-height: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reports-category-legend {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 0.5rem;
+  max-height: 400px;
+}
+
+.reports-legend-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.reports-legend-item:hover, .reports-legend-item.active {
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary);
+}
+
+.reports-legend-color {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  margin-right: 12px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.reports-legend-text {
+  flex: 1;
+}
+
+.reports-legend-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 5px;
+  color: var(--text-primary);
+}
+
+.reports-legend-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reports-legend-value {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.reports-legend-percentage {
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 600;
+  background-color: var(--primary-light);
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+/* Table Styles */
+.reports-table-container {
+  background: var(--card-bg);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  overflow-x: auto;
+  margin-top: 1.5rem;
+}
+
+.reports-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.reports-table th {
+  text-align: left;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-weight: 600;
+  border-bottom: 2px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-table tr:hover td {
+  background: var(--bg-hover);
+}
+
+.positive-change {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.negative-change {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.positive-change i, .negative-change i {
+  margin-right: 0.25rem;
+}
+
+/* Comparison Section */
+.reports-comparison-options {
+  background: var(--bg-secondary);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.reports-comparison-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.reports-comparison-buttons {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--card-bg);
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+}
+
+.reports-comparison-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reports-comparison-btn:hover {
+  background: var(--bg-hover);
+}
+
+.reports-comparison-btn.active {
+  background: var(--primary);
+  color: white;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .reports-chart-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .reports-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+/* Sửa lỗi hiển thị trong chế độ sáng */
+/* Ghi đè các CSS từ ":root" cho light mode */
+body:not([data-theme="dark"]) .reports-stats-section,
+body:not([data-theme="dark"]) .reports-stat-card {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+}
+
+body:not([data-theme="dark"]) .reports-global-filter {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+  box-shadow: var(--card-shadow);
+}
+
+body:not([data-theme="dark"]) .reports-filter-wrapper {
+  background-color: var(--card-bg);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-toggle {
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-menu {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item {
+  color: var(--text-primary);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item:hover {
+  background-color: var(--bg-hover);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item.active {
+  background-color: var(--primary-light);
+  color: var(--primary);
+}
+
+body:not([data-theme="dark"]) .reports-section {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-section-header h2 {
+  color: var(--text-primary);
+}
+
+body:not([data-theme="dark"]) .reports-chart-wrapper {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-chart-half {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-category-legend {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-table-container {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-table th {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-table td {
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-legend-item {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+/* Thêm reset style cho Global Filter */
+.reports-global-filter {
+  background-color: var(--card-bg); /* mặc định light mode */
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 100;
+  box-shadow: var(--card-shadow);
+}
+
+[data-theme="dark"] .reports-global-filter {
+  background-color: var(--dark-card-bg);
+  border-color: var(--dark-border-color);
+}
+
+/* Reset dropdown styles cho cả hai chế độ */
+.reports-dropdown-toggle {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  background-color: rgba(31, 41, 55, 0.7);
+  color: #f9fafb;
+  border: 1px solid var(--reports-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Sửa các thuộc tính CSS cho phần category-legend scroll */
+.reports-category-legend {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 0.5rem;
+}
+
+.reports-category-legend::-webkit-scrollbar {
+  width: 6px;
+}
+
+.reports-category-legend::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 8px;
+}
+
+.reports-category-legend::-webkit-scrollbar-thumb {
+  background: var(--primary-light);
+  border-radius: 8px;
+}
+
+.reports-category-legend::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+[data-theme="dark"] .reports-category-legend::-webkit-scrollbar-track {
+  background: var(--dark-bg-secondary);
+}
+
+[data-theme="dark"] .reports-category-legend::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.3);
+}
+
+[data-theme="dark"] .reports-category-legend::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.5);
+}
+
+/* Sửa lỗi hiển thị biểu đồ và bảng */
+#time-chart, #category-chart, #comparison-chart {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 300px;
+  display: block !important;
+  max-width: 100%;
+  position: relative;
+}
+
+.reports-chart-wrapper.loading, .reports-table-container.loading {
+  position: relative;
+  min-height: 150px;
+}
+
+.reports-chart-wrapper.loading::after, .reports-table-container.loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.reports-chart-wrapper.loading::before, .reports-table-container.loading::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  margin-left: -20px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  z-index: 11;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Report Sections */
+.reports-section {
+  background: var(--dark-card-bg);
+  border-radius: 0.75rem;
+  padding: 1.2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--dark-border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-section:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.reports-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.8rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.reports-section-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.reports-section-header h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+/* Export Buttons */
+.reports-export-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.reports-export-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background: rgba(31, 41, 55, 0.7);
+  border: 1px solid rgba(55, 65, 81, 0.6);
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #f9fafb;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reports-export-btn:hover {
+  background: var(--reports-primary);
+  border-color: var(--reports-primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+}
+
+.reports-export-btn:active {
+  transform: translateY(-1px);
+}
+
+/* Chart Sections */
+.reports-chart-wrapper {
+  background: var(--card-bg);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  height: 350px;
+  position: relative;
+}
+
+.reports-chart-wrapper canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+
+.reports-chart-grid {
+  display: flex;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  width: 100%;
+}
+
+.reports-chart-half {
+  flex: 1;
+  position: relative;
+  background: var(--card-bg);
+  border-radius: 8px;
+  padding: 1rem;
+  min-height: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reports-category-legend {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 0.5rem;
+  max-height: 400px;
+}
+
+.reports-legend-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.reports-legend-item:hover, .reports-legend-item.active {
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary);
+}
+
+.reports-legend-color {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  margin-right: 12px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.reports-legend-text {
+  flex: 1;
+}
+
+.reports-legend-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 5px;
+  color: var(--text-primary);
+}
+
+.reports-legend-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reports-legend-value {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.reports-legend-percentage {
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 600;
+  background-color: var(--primary-light);
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+/* Table Styles */
+.reports-table-container {
+  background: var(--card-bg);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  overflow-x: auto;
+  margin-top: 1.5rem;
+}
+
+.reports-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.reports-table th {
+  text-align: left;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-weight: 600;
+  border-bottom: 2px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-table tr:hover td {
+  background: var(--bg-hover);
+}
+
+.positive-change {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.negative-change {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.positive-change i, .negative-change i {
+  margin-right: 0.25rem;
+}
+
+/* Comparison Section */
+.reports-comparison-options {
+  background: var(--bg-secondary);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.reports-comparison-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.reports-comparison-buttons {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--card-bg);
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+}
+
+.reports-comparison-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reports-comparison-btn:hover {
+  background: var(--bg-hover);
+}
+
+.reports-comparison-btn.active {
+  background: var(--primary);
+  color: white;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .reports-chart-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .reports-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+/* Sửa lỗi hiển thị trong chế độ sáng */
+/* Ghi đè các CSS từ ":root" cho light mode */
+body:not([data-theme="dark"]) .reports-stats-section,
+body:not([data-theme="dark"]) .reports-stat-card {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+}
+
+body:not([data-theme="dark"]) .reports-global-filter {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+  box-shadow: var(--card-shadow);
+}
+
+body:not([data-theme="dark"]) .reports-filter-wrapper {
+  background-color: var(--card-bg);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-toggle {
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-menu {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item {
+  color: var(--text-primary);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item:hover {
+  background-color: var(--bg-hover);
+}
+
+body:not([data-theme="dark"]) .reports-dropdown-item.active {
+  background-color: var(--primary-light);
+  color: var(--primary);
+}
+
+body:not([data-theme="dark"]) .reports-section {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-section-header h2 {
+  color: var(--text-primary);
+}
+
+body:not([data-theme="dark"]) .reports-chart-wrapper {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-chart-half {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-category-legend {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-table-container {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-table th {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-table td {
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-legend-item {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+/* Thêm reset style cho Global Filter */
+.reports-global-filter {
+  background-color: var(--card-bg); /* mặc định light mode */
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 100;
+  box-shadow: var(--card-shadow);
+}
+
+[data-theme="dark"] .reports-global-filter {
+  background-color: var(--dark-card-bg);
+  border-color: var(--dark-border-color);
+}
+
+/* Reset dropdown styles cho cả hai chế độ */
+.reports-dropdown-toggle {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  background-color: rgba(31, 41, 55, 0.7);
+  color: #f9fafb;
+  border: 1px solid var(--reports-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Sửa các thuộc tính CSS cho phần category-legend scroll */
+.reports-category-legend {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 0.5rem;
+}
+
+.reports-category-legend::-webkit-scrollbar {
+  width: 6px;
+}
+
+.reports-category-legend::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 8px;
+}
+
+.reports-category-legend::-webkit-scrollbar-thumb {
+  background: var(--primary-light);
+  border-radius: 8px;
+}
+
+.reports-category-legend::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+[data-theme="dark"] .reports-category-legend::-webkit-scrollbar-track {
+  background: var(--dark-bg-secondary);
+}
+
+[data-theme="dark"] .reports-category-legend::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.3);
+}
+
+[data-theme="dark"] .reports-category-legend::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.5);
+}
+
+/* Sửa lỗi hiển thị biểu đồ và bảng */
+#time-chart, #category-chart, #comparison-chart {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 300px;
+  display: block !important;
+  max-width: 100%;
+  position: relative;
+}
+
+.reports-chart-wrapper.loading, .reports-table-container.loading {
+  position: relative;
+  min-height: 150px;
+}
+
+.reports-chart-wrapper.loading::after, .reports-table-container.loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.reports-chart-wrapper.loading::before, .reports-table-container.loading::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  margin-left: -20px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  z-index: 11;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Report Sections */
+.reports-section {
+  background: var(--dark-card-bg);
+  border-radius: 0.75rem;
+  padding: 1.2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--dark-border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-section:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.reports-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.8rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.reports-section-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.reports-section-header h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+/* Export Buttons */
+.reports-export-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.reports-export-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background: rgba(31, 41, 55, 0.7);
+  border: 1px solid rgba(55, 65, 81, 0.6);
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #f9fafb;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reports-export-btn:hover {
+  background: var(--reports-primary);
+  border-color: var(--reports-primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+}
+
+.reports-export-btn:active {
+  transform: translateY(-1px);
+}
+
+/* Chart Sections */
+.reports-chart-wrapper {
+  background: var(--card-bg);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  height: 350px;
+  position: relative;
+}
+
+.reports-chart-wrapper canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+
+.reports-chart-grid {
+  display: flex;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  width: 100%;
+}
+
+.reports-chart-half {
+  flex: 1;
+  position: relative;
+  background: var(--card-bg);
+  border-radius: 8px;
+  padding: 1rem;
+  min-height: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reports-category-legend {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 0.5rem;
+  max-height: 400px;
+}
+
+.reports-legend-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.reports-legend-item:hover, .reports-legend-item.active {
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary);
+}
+
+.reports-legend-color {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  margin-right: 12px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.reports-legend-text {
+  flex: 1;
+}
+
+.reports-legend-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 5px;
+  color: var(--text-primary);
+}
+
+.reports-legend-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reports-legend-value {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.reports-legend-percentage {
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 600;
+  background-color: var(--primary-light);
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+/* Table Styles */
+.reports-table-container {
+  background: var(--card-bg);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  overflow-x: auto;
+  margin-top: 1.5rem;
+}
+
+.reports-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.reports-table th {
+  text-align: left;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-weight: 600;
+  border-bottom: 2px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.reports-table tr:hover td {
+  background: var(--bg-hover);
+}
+
+.positive-change {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.negative-change {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.positive-change i, .negative-change i {
+  margin-right: 0.25rem;
+}
+
+/* Comparison Section */
+.reports-comparison-options {
+  background: var(--bg-secondary);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.reports-comparison-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.reports-comparison-buttons {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--card-bg);
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+}
+
+.reports-comparison-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reports-comparison-btn:hover {
+  background: var(--bg-hover);
+}
+
+.reports-comparison-btn.active {
+  background: var(--primary);
+  color: white;
+}
+
+/* CSS cho chế độ sáng */
+body:not([data-theme="dark"]) .reports-chart-wrapper,
+body:not([data-theme="dark"]) .reports-section,
+body:not([data-theme="dark"]) .reports-table-container {
+  background: white;
+  border-color: var(--border-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+body:not([data-theme="dark"]) .reports-table th {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-table td {
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body:not([data-theme="dark"]) .reports-export-btn {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+body:not([data-theme="dark"]) .reports-export-btn:hover {
+  background: var(--primary);
+  color: white;
+}
+
+body:not([data-theme="dark"]) .reports-table tr:hover td {
+  background: var(--bg-hover);
+}
+
+/* Cải thiện bảng trong chế độ tối */
+.reports-table {
+  margin-bottom: 0;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.reports-table th:first-child {
+  border-top-left-radius: 0.5rem;
+}
+
+.reports-table th:last-child {
+  border-top-right-radius: 0.5rem;
+}
+
+/* Style các chỉ số thay đổi */
+.positive-change, .negative-change {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.positive-change i, .negative-change i {
+  font-size: 0.8rem;
+  margin-right: 0.35rem;
+}
+
+/* Style cho tiêu đề chart và table */
+.reports-section-header {
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.8rem;
+}
+
+.reports-section-header h2 {
+  font-size: 1.1rem;
+  color: #f9fafb;
+}
+
+body:not([data-theme="dark"]) .reports-section-header h2 {
+  color: var(--text-primary);
+}
+
+/* CSS cho toast thông báo */
+.reports-toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.reports-toast {
+  background-color: var(--card-bg);
+  border-left: 4px solid var(--primary);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  min-width: 250px;
+  max-width: 400px;
+  transform: translateX(120%);
+  transition: transform 0.3s ease;
+}
+
+[data-theme="dark"] .reports-toast {
+  background-color: var(--dark-card-bg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.reports-toast.show {
+  transform: translateX(0);
+}
+
+.reports-toast-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.reports-toast-content i {
+  font-size: 18px;
+  color: var(--primary);
+}
+
+.reports-toast-content span {
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .reports-toast-content span {
+  color: var(--dark-text-primary);
+}
+
+.reports-toast-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: 16px;
+  padding: 4px;
+}
+
+.reports-toast-close:hover {
+  color: var(--text-primary);
+}
+
+.reports-toast-info {
+  border-left-color: var(--info);
+}
+
+.reports-toast-success {
+  border-left-color: var(--success);
+}
+
+.reports-toast-warning {
+  border-left-color: var(--warning);
+}
+
+.reports-toast-error {
+  border-left-color: var(--danger);
+}
+
+/* Cải thiện CSS cho canvas biểu đồ */
+.reports-chart-half {
+  position: relative;
+  min-height: 300px;
+  max-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#category-chart {
+  display: block !important;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.reports-chart-wrapper {
+  position: relative;
+  min-height: 300px;
+  max-height: 400px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#time-chart, #comparison-chart {
+  display: block !important; 
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Thêm CSS cho overlay khi không có dữ liệu */
+.reports-chart-no-data {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  z-index: 5;
+}
+
+[data-theme="dark"] .reports-chart-no-data {
+  background-color: rgba(15, 23, 42, 0.8);
+}
+
+.reports-chart-no-data i {
+  font-size: 48px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.reports-chart-no-data span {
+  font-size: 16px;
+  color: var(--text-secondary);
+  text-align: center;
+  max-width: 80%;
+}
+
+/* Đảm bảo canvas được hiển thị đúng */
+canvas#category-chart, canvas#time-chart, canvas#comparison-chart {
+  width: 100% !important;
+  height: 100% !important;
+  max-height: 350px !important;
+}
+
+/* Thông báo (Notification) */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 15px 20px;
+  border-radius: 8px;
+  background-color: var(--reports-card-bg);
+  color: var(--reports-text);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 350px;
+  z-index: 9999;
+  transform: translateX(120%);
+  transition: transform 0.3s ease;
+}
+
+.notification.show {
+  transform: translateX(0);
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.notification-content i {
+  font-size: 1.2rem;
+}
+
+.notification-close {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0;
+  font-size: 1rem;
+}
+
+.notification-info {
+  border-left: 4px solid #3b82f6;
+}
+
+.notification-info i {
+  color: #3b82f6;
+}
+
+.notification-warning {
+  border-left: 4px solid #f59e0b;
+}
+
+.notification-warning i {
+  color: #f59e0b;
+}
+
+.notification-success {
+  border-left: 4px solid #10b981;
+}
+
+.notification-success i {
+  color: #10b981;
+}
+
+[data-theme="dark"] .notification {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Sửa chữa cho bảng trong chế độ tối */
+[data-theme="dark"] .reports-table th {
+  background-color: var(--dark-bg-secondary) !important;
+  color: var(--dark-text-primary) !important;
+  border-color: var(--dark-border-color) !important;
+}
+
+[data-theme="dark"] .reports-table td {
+  color: var(--dark-text-primary) !important;
+  border-color: var(--dark-border-color) !important;
+}
+
+[data-theme="dark"] .reports-table tr:hover td {
+  background-color: var(--dark-bg-hover) !important;
+  color: var(--dark-text-primary) !important;
+}
+
+/* Sửa đổi cho các phần tử trong bảng */
+[data-theme="dark"] .reports-table .positive-change {
+  color: var(--dark-success) !important;
+}
+
+[data-theme="dark"] .reports-table .negative-change {
+  color: var(--dark-danger) !important;
+}

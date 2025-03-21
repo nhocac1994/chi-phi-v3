@@ -1,0 +1,1495 @@
+/* CSS cho trang Chi phí */
+.expenses-container {
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Bộ lọc */
+.filter-section {
+  background-color: var(--card-bg);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 6px var(--shadow-color);
+  transition: all 0.3s ease;
+}
+
+.filter-controls-expense {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filter-group {
+  flex: 1;
+  min-width: 120px;
+}
+
+.filter-group.search-group {
+  flex: 2;
+  min-width: 200px;
+}
+
+.filter-group.status-group,
+.filter-group.category-group {
+  flex: 1;
+  min-width: 150px;
+}
+
+.filter-date-group {
+  flex: 2;
+  min-width: 250px;
+}
+
+.date-range {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filter-date-input {
+  flex: 1;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 12rem;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  transition: all 0.2s ease;
+}
+
+.filter-date-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.15);
+  outline: none;
+}
+
+.date-separator {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Nút reset bộ lọc */
+.reset-filters-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 12rem;
+  background-color: var(--danger-light);
+  color: var(--danger-color);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reset-filters-btn:hover {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.reset-filters-btn i {
+  margin-right: 0.5rem;
+}
+
+/* Phân trang */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 2px 6px var(--shadow-color);
+}
+
+.page-item {
+  margin: 0;
+}
+
+.page-item.active .page-link {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.page-item.disabled .page-link {
+  color: var(--text-muted);
+  pointer-events: none;
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+.page-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+  text-decoration: none;
+  min-width: 40px;
+  text-align: center;
+}
+
+.page-link:hover {
+  background-color: var(--primary-light);
+  color: var(--primary-color);
+  z-index: 2;
+}
+
+.filter-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.search-input-wrapper {
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.55rem 1rem 0.55rem 2.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 12rem;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  transition: all 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.15);
+  outline: none;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--secondary-color);
+}
+
+.filter-select {
+  width: 100%;
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 12rem;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23718096' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 16px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.15);
+  outline: none;
+}
+
+.filter-date {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.375rem;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  transition: all 0.2s ease;
+}
+
+.filter-date:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.15);
+  outline: none;
+}
+
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.expense-counter {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  background-color: var(--primary-light);
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  white-space: nowrap;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Danh sách chi phí */
+.expenses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* CSS cho thẻ chi phí mới - thiết kế đơn giản */
+.expense-card {
+  background-color: var(--card-bg, #223344);
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  margin-bottom: 1rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0.75rem;
+}
+
+.expense-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.expense-card-icon-container {
+  width: 48px;
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.expense-card-icon {
+  font-size: 2rem;
+  color: var(--primary-color, #4dabf7);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 20%;
+  background-color: rgba(77, 171, 247, 0.15);
+  transition: all 0.3s ease;
+}
+
+.expense-card:hover .expense-card-icon {
+  transform: scale(1.1);
+  background-color: rgba(77, 171, 247, 0.25);
+}
+
+.expense-card-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.expense-card-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.expense-card-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-color, #ffffff);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+}
+
+.expense-card-category {
+  font-size: 0.75rem;
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 0.15rem 0.5rem;
+  border-radius: 1rem;
+  white-space: nowrap;
+  margin-left: 0.5rem;
+}
+
+.expense-card-amount {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #a3d8f8;
+  margin-bottom: 0.5rem;
+}
+
+.expense-card-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.35rem;
+}
+
+.expense-card-location {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  color: var(--text-muted, #a0aec0);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 70%;
+}
+
+.expense-card-date {
+  font-size: 0.8rem;
+  color: var(--text-muted, #a0aec0);
+  white-space: nowrap;
+}
+
+.expense-card-notes-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.expense-card-notes {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  color: var(--text-muted, #a0aec0);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 70%;
+}
+
+.expense-card-location i,
+.expense-card-notes i {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.expense-card-image-count {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  color: var(--primary-color, #4dabf7);
+  white-space: nowrap;
+}
+
+/* Phần hình ảnh */
+.expense-card-images {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.expense-card-images:empty {
+  display: none;
+}
+
+.expense-card-image {
+  width: 70px;
+  height: 70px;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.expense-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.expense-more-images {
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .expense-card {
+    padding: 10px;
+    margin: 0 !important;
+  }
+  
+  .expense-card-icon-container {
+    width: 40px;
+    margin-right: 0.5rem;
+  }
+  
+  .expense-card-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+    border-radius: 10px;
+  }
+  
+  .expense-card-title {
+    font-size: 0.85rem;
+  }
+  
+  .expense-card-amount {
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+  }
+  
+  .expense-card-category {
+    font-size: 0.7rem;
+    padding: 0.1rem 0.4rem;
+  }
+  
+  .expense-card-details,
+  .expense-card-notes-container {
+    margin-bottom: 0.25rem;
+  }
+  
+  .expense-card-location,
+  .expense-card-notes,
+  .expense-card-date,
+  .expense-card-image-count {
+    font-size: 0.75rem;
+  }
+  
+  .expense-card-image {
+    width: 55px;
+    height: 55px;
+  }
+}
+
+/* Làm cho modal đẹp và nhất quán hơn */
+.expense-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.expense-modal.show {
+  display: block;
+}
+
+.expense-modal-content {
+  background-color: var(--card-bg);
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  border-radius: 0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  position: relative;
+  animation: modalFadeIn 0.3s ease;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.expense-modal-header {
+  padding: 16px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  margin-top: 0 !important;
+}
+
+.expense-modal-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.expense-modal-close, 
+.expense-detail-close {
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--text-muted);
+}
+
+.expense-modal-close:hover,
+.expense-detail-close:hover {
+  color: var(--text-primary);
+}
+
+.expense-modal-body {
+  padding: 16px;
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Style form thêm chi phí */
+.expense-form-group {
+  margin-bottom: 16px;
+}
+
+.expense-form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.expense-form-group .required {
+  color: #e53935;
+}
+
+.expense-form-group input,
+.expense-form-group select,
+.expense-form-group textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 14px;
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+}
+
+.expense-form-group input:focus,
+.expense-form-group select:focus,
+.expense-form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.2);
+}
+
+.expense-input-group {
+  display: flex;
+  align-items: center;
+}
+
+.expense-input-addon {
+  padding: 10px 12px;
+  background-color: var(--input-addon-bg);
+  border: 1px solid var(--border-color);
+  border-left: none;
+  border-radius: 0 8px 8px 0;
+  color: var(--text-muted);
+}
+
+.expense-input-group input {
+  border-radius: 8px 0 0 8px;
+}
+
+.expense-location-btn {
+  margin-top: 8px;
+  padding: 6px 12px;
+  background-color: var(--button-secondary-bg);
+  color: var(--button-secondary-text);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.expense-location-btn:hover {
+  background-color: var(--button-secondary-hover);
+}
+
+.expense-image-preview-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.expense-image-preview {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.expense-image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.expense-remove-image {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 20px;
+  height: 20px;
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 10px;
+  padding: 0;
+}
+
+.expense-form-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 16px;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--card-bg);
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+}
+
+.expense-save-btn,
+.expense-cancel-btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 1rem;
+  flex: 1;
+}
+
+.expense-save-btn {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.expense-save-btn:hover {
+  background-color: var(--primary-hover);
+}
+
+.expense-cancel-btn {
+  background-color: var(--button-secondary-bg);
+  color: var(--button-secondary-text);
+}
+
+.expense-cancel-btn:hover {
+  background-color: var(--button-secondary-hover);
+}
+
+/* Style chi tiết chi phí */
+.expense-detail-info {
+  margin-bottom: 20px;
+}
+
+.expense-detail-row {
+  display: flex;
+  margin-bottom: 12px;
+  align-items: baseline;
+}
+
+.expense-detail-label {
+  font-weight: 600;
+  width: 100px;
+  flex-shrink: 0;
+  color: var(--text-primary);
+}
+
+.expense-detail-amount {
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--amount-color);
+}
+
+.expense-detail-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.expense-detail-image {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.expense-detail-image:hover {
+  transform: scale(1.05);
+}
+
+.expense-detail-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.expense-detail-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.edit-btn {
+  background-color: var(--edit-btn-bg);
+  color: var(--edit-btn-text);
+}
+
+.edit-btn:hover {
+  background-color: var(--edit-btn-hover);
+}
+
+.delete-btn {
+  background-color: var(--delete-btn-bg);
+  color: var(--delete-btn-text);
+}
+
+.delete-btn:hover {
+  background-color: var(--delete-btn-hover);
+}
+
+.close-btn {
+  background-color: var(--button-secondary-bg);
+  color: var(--button-secondary-text);
+}
+
+.close-btn:hover {
+  background-color: var(--button-secondary-hover);
+}
+
+/* Ẩn các trường trống trong chi tiết */
+.expense-detail-location-row:empty,
+.expense-detail-notes-row:empty {
+  display: none;
+}
+
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive cho các màn hình nhỏ */
+@media (max-width: 576px) {
+  .expense-modal{
+    top: 0 !important;
+    width: 100vh !important;
+    height: 100vh !important;
+  }
+  .expense-modal-content {
+    width: 100vh;
+    height: 100vh;
+    margin: 10px auto;
+  }
+  
+  .expense-detail-label {
+    width: 80px;
+  }
+  
+  .expense-detail-row {
+    margin-bottom: 8px;
+  }
+  
+  .expense-detail-images {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  }
+  
+  .expense-detail-actions {
+    flex-wrap: wrap;
+  }
+  
+  .expense-detail-btn {
+    flex: 1;
+  }
+}
+
+/* Loading indicator */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  grid-column: 1 / -1;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(79, 70, 229, 0.1);
+  border-top: 4px solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Nút thêm chi phí */
+#add-expense-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: auto;
+  height: auto;
+  padding: 0.75rem 1.25rem;
+  border-radius: 2rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+#add-expense-btn i {
+  margin-right: 0.5rem;
+  font-size: 1.1rem;
+}
+
+#add-expense-btn:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(79, 70, 229, 0.4);
+}
+
+/* Ẩn text trên nút khi ở mobile */
+@media (max-width: 768px) {
+
+  #add-expense-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    padding: 0;
+    bottom: 70px;
+  }
+  
+  #add-expense-btn span {
+    display: none;
+  }
+  
+  #add-expense-btn i {
+    margin-right: 0;
+    font-size: 1.3rem;
+  }
+}
+
+/* Chế độ tối */
+html[data-theme="dark"] .expense-category,
+body[data-theme="dark"] .expense-category {
+  background-color: rgba(99, 102, 241, 0.15) !important;
+  color: #818cf8 !important;
+}
+
+html[data-theme="dark"] .expense-status.pending,
+body[data-theme="dark"] .expense-status.pending {
+  background-color: rgba(237, 137, 54, 0.15) !important;
+  color: #f6ad55 !important;
+}
+
+html[data-theme="dark"] .expense-status.paid,
+body[data-theme="dark"] .expense-status.paid {
+  background-color: rgba(72, 187, 120, 0.15) !important;
+  color: #68d391 !important;
+}
+
+html[data-theme="dark"] .expense-status-badge.pending,
+body[data-theme="dark"] .expense-status-badge.pendig {r: rgba(237, 137, 54, 0.15) !important;
+  color: #f6ad55 !important;
+}
+
+html[data-theme="dark"] .expense-status-badge.paid,
+body[data-theme="dark"] .expense-status-badge.paid {
+  background-color: rgba(72, 187, 120, 0.15) !important;
+  color: #68d391 !important;
+}
+
+html[data-theme="dark"] .action-icon-btn,
+body[data-theme="dark"] .action-icon-btn {
+  background-color: #2d3748 !important;
+  border-color: #4a5568 !important;
+}
+
+html[data-theme="dark"] .action-icon-btn:hover,
+body[data-theme="dark"] .action-icon-btn:hover {
+  background-color: #4a5568 !important;
+}
+
+html[data-theme="dark"] .action-icon-btn.danger,
+body[data-theme="dark"] .action-icon-btn.danger {
+  color: #fc8181 !important;
+  border-color: rgba(252, 129, 129, 0.3) !important;
+}
+
+html[data-theme="dark"] .action-icon-btn.danger:hover,
+body[data-theme="dark"] .action-icon-btn.danger:hover {
+  background-color: rgba(229, 62, 62, 0.15) !important;
+}
+
+html[data-theme="dark"] .file-upload-label,
+body[data-theme="dark"] .file-upload-label {
+  background-color: rgba(255, 255, 255, 0.02) !important;
+  border-color: #4a5568 !important;
+}
+
+html[data-theme="dark"] .file-upload-label:hover,
+body[data-theme="dark"] .file-upload-label:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+html[data-theme="dark"] .spinner,
+body[data-theme="dark"] .spinner {
+  border-color: rgba(99, 102, 241, 0.15) !important;
+  border-top-color: #6366f1 !important;
+}
+
+/* CSS cho phần wrapper hình ảnh */
+.expense-card-images-section {
+  background-color: rgba(0, 0, 0, 0.15);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0 0 0.75rem 0.75rem;
+  overflow: hidden;
+  margin-top: 0;
+}
+
+/* Điều chỉnh CSS cho phần hình ảnh */
+.expense-card-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.expense-card-images:empty {
+  display: none;
+}
+
+.expense-card-images-section:has(.expense-card-images:empty) {
+  display: none;
+}
+
+/* CSS cho phần more images */
+.expense-more-images {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.expense-more-images span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 768px) {
+  .expense-modal-content {
+    margin: 0 auto;
+    height: 100vh;
+    max-width: 600px;
+    border-radius: 0;
+  }
+  
+  .expense-save-btn,
+  .expense-cancel-btn {
+    flex: 0 1 auto;
+    min-width: 120px;
+  }
+}
+
+/* CSS cho dropdown gợi ý */
+.expense-dropdown {
+  position: absolute;
+  background-color: var(--card-bg);
+  width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  display: none;
+  margin-top: 0.25rem;
+  max-height: 300px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+.expense-dropdown.show {
+  display: block;
+}
+
+.expense-dropdown-item {
+  padding: 0.9rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 1rem;
+}
+
+.expense-dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.expense-dropdown-item:hover,
+.expense-dropdown-item.active {
+  background-color: var(--primary-light);
+  color: var(--primary-color);
+}
+
+/* Thanh cuộn tùy chỉnh */
+.expense-dropdown::-webkit-scrollbar {
+  width: 6px;
+}
+
+.expense-dropdown::-webkit-scrollbar-track {
+  background: var(--card-bg);
+}
+
+.expense-dropdown::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);
+  border-radius: 10px;
+}
+
+/* Tùy chỉnh input để hiển thị icon dropdown */
+.expense-form-group {
+  position: relative;
+}
+
+.expense-form-group input[id="expenseName"],
+.expense-form-group input[id="expenseLocation"] {
+  padding-right: 2.5rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23718096' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 12px;
+}
+
+/* Đảm bảo form thêm chi phí hiển thị tốt */
+#expenseForm .expense-form-group {
+  margin-bottom: 20px;
+}
+
+#expenseForm .expense-form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+#expenseForm .expense-form-group input,
+#expenseForm .expense-form-group select,
+#expenseForm .expense-form-group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 1rem;
+}
+
+/* Đảm bảo dropdown không bị che mất bởi bàn phím ảo trên điện thoại */
+@media (max-width: 767px) {
+  .expense-dropdown {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-height: 40vh;
+    margin-top: 0;
+    border-radius: 1rem 1rem 0 0;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .expense-dropdown-item {
+    padding: 1rem;
+    font-size: 1.1rem;
+  }
+  
+  /* Tăng kích thước cho các phần tử form trên điện thoại */
+  #expenseForm .expense-form-group input,
+  #expenseForm .expense-form-group select,
+  #expenseForm .expense-form-group textarea {
+    padding: 14px 16px;
+    font-size: 16px; /* Tránh zoom trên iOS */
+  }
+}
+
+.expense-dropdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--card-bg);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.expense-dropdown-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  padding: 0.25rem;
+  cursor: pointer;
+  color: var(--text-muted);
+}
+
+.expense-dropdown-close:hover {
+  color: var(--text-primary);
+}
+
+.expense-dropdown-item.no-suggestions {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+@media (max-width: 767px) {
+  .expense-dropdown {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-height: 40vh;
+    margin-top: 0;
+    border-radius: 1rem 1rem 0 0;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .expense-dropdown-header {
+    border-radius: 1rem 1rem 0 0;
+    background-color: var(--card-bg);
+  }
+  
+  .expense-dropdown-item {
+    padding: 1rem;
+    font-size: 1.1rem;
+  }
+  
+  /* Tăng kích thước cho các phần tử form trên điện thoại */
+  #expenseForm .expense-form-group input,
+  #expenseForm .expense-form-group select,
+  #expenseForm .expense-form-group textarea {
+    padding: 14px 16px;
+    font-size: 16px; /* Tránh zoom trên iOS */
+  }
+}
+
+/* Cải thiện hiển thị số tiền và đơn vị tiền tệ */
+.expense-amount-input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.expense-amount-input {
+  flex: 1;
+  padding-right: 60px !important;
+}
+
+.expense-currency {
+  position: absolute;
+  right: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: 1rem;
+  pointer-events: none;
+  background-color: transparent;
+  border-left: 1px solid var(--border-color);
+  padding-left: 12px;
+  height: 60%;
+  display: flex;
+  align-items: center;
+}
+
+/* Nút tải lại dữ liệu */
+.btn-reload-expenses {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--primary-light);
+  color: var(--primary-color);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+}
+
+.btn-reload-expenses:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: rotate(180deg);
+}
+
+.btn-reload-expenses i {
+  transition: transform 0.3s ease;
+}
+
+.btn-reload-expenses:active i {
+  transform: rotate(360deg);
+}
+
+@media (max-width: 576px) {
+  .btn-reload-expenses {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+}
+/* Lightbox cho hình ảnh chi phí - KHÔNG SỬA HOẶC GHI ĐÈ */
+.expense-lightbox {
+  display: none !important;
+  position: fixed !important;
+  z-index: 10000 !important;
+  left: 0 !important;
+  top: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: rgba(0, 0, 0, 0.95) !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  opacity: 0 !important;
+  transition: opacity 0.3s ease !important;
+}
+
+.expense-lightbox.show {
+  opacity: 1 !important;
+  display: flex !important;
+}
+
+.expense-lightbox-container {
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.expense-lightbox-image {
+  max-width: 90% !important;
+  max-height: 85% !important;
+  object-fit: contain !important;
+  border-radius: 5px !important;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5) !important;
+  transition: transform 0.3s ease, opacity 0.3s ease !important;
+  z-index: 9000 !important;
+}
+
+.expense-lightbox-close {
+  position: absolute !important;
+  top: 20px !important;
+  right: 25px !important;
+  color: white !important;
+  font-size: 24px !important;
+  cursor: pointer !important;
+  z-index: 10001 !important;
+  background-color: rgba(0,0,0,0.5) !important;
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  transition: all 0.3s ease !important;
+}
+
+.expense-lightbox-close:hover {
+  background-color: rgba(220, 53, 69, 0.8) !important;
+  transform: scale(1.1) !important;
+}
+
+.expense-lightbox-navigation {
+  position: absolute !important;
+  width: 100% !important;
+  height: 100% !important;
+  top: 0 !important;
+  left: 0 !important;
+  pointer-events: none !important;
+  z-index: 9001 !important;
+}
+
+.expense-lightbox-prev, 
+.expense-lightbox-next {
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  color: white !important;
+  cursor: pointer !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  border-radius: 50% !important;
+  transition: all 0.3s ease !important;
+  z-index: 10001 !important;
+  width: 60px !important;
+  height: 60px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  pointer-events: auto !important;
+}
+
+.expense-lightbox-prev {
+  left: 25px !important;
+}
+
+.expense-lightbox-next {
+  right: 25px !important;
+}
+
+.expense-lightbox-prev:hover, 
+.expense-lightbox-next:hover {
+  background-color: rgba(13, 110, 253, 0.8) !important;
+  transform: translateY(-50%) scale(1.1) !important;
+}
+
+.expense-lightbox-prev i, 
+.expense-lightbox-next i {
+  font-size: 32px !important;
+}
+
+.expense-lightbox-counter {
+  position: absolute !important;
+  bottom: 25px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  color: white !important;
+  background-color: rgba(0,0,0,0.6) !important;
+  padding: 8px 16px !important;
+  border-radius: 30px !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  letter-spacing: 1px !important;
+}
+
+@media (max-width: 768px) {
+  .expense-lightbox-prev, 
+  .expense-lightbox-next {
+    width: 48px !important;
+    height: 48px !important;
+  }
+  .expense-lightbox-prev {
+    left: 15px !important;
+  }
+  .expense-lightbox-next {
+    right: 15px !important;
+  }
+  .expense-lightbox-prev i, 
+  .expense-lightbox-next i {
+    font-size: 28px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .expense-lightbox-close {
+    top: 15px !important;
+    right: 15px !important;
+    width: 40px !important;
+    height: 40px !important;
+    font-size: 20px !important;
+  }
+  .expense-lightbox-prev, 
+  .expense-lightbox-next {
+    width: 40px !important;
+    height: 40px !important;
+  }
+  .expense-lightbox-prev i, 
+  .expense-lightbox-next i {
+    font-size: 22px !important;
+  }
+  .expense-lightbox-counter {
+    bottom: 15px !important;
+    padding: 6px 12px !important;
+    font-size: 14px !important;
+  }
+}
+
+/* Fix cụ thể cho lightbox - Đảm bảo các nút hiển thị đúng kích thước */
+.expense-lightbox .expense-lightbox-prev,
+.expense-lightbox .expense-lightbox-next {
+  width: 60px !important;
+  height: 60px !important;
+  border-radius: 50% !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+
+.expense-lightbox .expense-lightbox-prev {
+  left: 25px !important;
+}
+
+.expense-lightbox .expense-lightbox-next {
+  right: 25px !important;
+}
+
+.expense-lightbox .expense-lightbox-prev i,
+.expense-lightbox .expense-lightbox-next i {
+  font-size: 32px !important;
+  color: white !important;
+}

@@ -1,0 +1,560 @@
+<!-- Bộ lọc dashboard -->
+<div class="card shadow-sm mb-3" id="dashboard-filter-section">
+    <div class="card-body">
+      <!-- Giao diện mobile chỉ hiển thị icon -->
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+          <h5 class="card-title mb-0 d-flex align-items-center">
+            <i class="bi bi-funnel me-1"></i><span class="d-none d-sm-inline">Bộ lọc</span>
+        </h5>
+        </div>
+        
+        <!-- Icon filter cho mobile -->
+        <div class="filter-icons d-flex d-md-none">
+          <!-- Icon thời gian -->
+          <button class="btn btn-icon filter-icon-btn me-2" id="time-filter-icon" data-target="time-sheet">
+              <i class="bi bi-calendar3"></i>
+          </button>
+          
+          <!-- Icon trạng thái -->
+          <button class="btn btn-icon filter-icon-btn me-2" id="status-filter-icon" data-target="status-sheet">
+            <i class="bi bi-list-check"></i>
+          </button>
+          
+          <!-- Icon danh mục -->
+          <button class="btn btn-icon filter-icon-btn me-2" id="category-filter-icon" data-target="category-sheet">
+              <i class="bi bi-tag"></i>
+          </button>
+          
+          <!-- Icon đặt lại -->
+          <button class="btn btn-icon reset-icon-btn" id="reset-filter-icon">
+              <i class="bi bi-arrow-counterclockwise"></i>
+        </button>
+      </div>
+      
+        <!-- Dropdown cho desktop -->
+        <div class="filter-controls d-none d-md-flex align-items-center">
+          <!-- Dropdown thời gian -->
+          <div class="dropdown me-2">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="timeFilterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-calendar3 me-1"></i>Thời gian
+              </button>
+            <ul class="dropdown-menu" aria-labelledby="timeFilterDropdown">
+              <li><a class="dropdown-item quick-date-btn" href="#" data-period="today"><i class="bi bi-calendar-day me-2"></i>Hôm nay</a></li>
+              <li><a class="dropdown-item quick-date-btn" href="#" data-period="week"><i class="bi bi-calendar-week me-2"></i>Tuần này</a></li>
+              <li><a class="dropdown-item quick-date-btn active" href="#" data-period="month"><i class="bi bi-calendar-month me-2"></i>Tháng này</a></li>
+              <li><a class="dropdown-item quick-date-btn" href="#" data-period="year"><i class="bi bi-calendar-range me-2"></i>Năm nay</a></li>
+                <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#" data-id="custom-date-btn"><i class="bi bi-sliders me-2"></i>Tùy chỉnh...</a></li>
+              </ul>
+          </div>
+          
+          <!-- Dropdown trạng thái -->
+          <div class="dropdown me-2">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="statusFilterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-list-check me-1"></i>Trạng thái
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="statusFilterDropdown">
+              <li><button class="dropdown-item status-item active" data-value="all"><i class="bi bi-list me-2"></i>Tất cả trạng thái</button></li>
+              <li><button class="dropdown-item status-item" data-value="paid"><i class="bi bi-check-circle me-2"></i>Đã thanh toán</button></li>
+              <li><button class="dropdown-item status-item" data-value="unpaid"><i class="bi bi-x-circle me-2"></i>Chưa thanh toán</button></li>
+            </ul>
+          </div>
+          
+          <!-- Dropdown danh mục -->
+          <div class="dropdown me-2">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="categoryFilterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-tag me-1"></i>Danh mục
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="categoryFilterDropdown">
+              <li><button class="dropdown-item category-item active" data-value="all"><i class="bi bi-tag me-2"></i>Tất cả danh mục</button></li>
+              <% if (staticData && staticData.categories) { %>
+                <% staticData.categories.forEach(function(category) { %>
+                  <li><button class="dropdown-item category-item" data-value="<%= category.name %>"><i class="bi bi-tag me-2"></i><%= category.name %></button></li>
+                <% }); %>
+              <% } %>
+            </ul>
+          </div>
+          
+          <!-- Nút đặt lại cho desktop -->
+          <button class="btn btn-primary" id="reset-filter-desktop">
+            <i class="bi bi-arrow-counterclockwise me-1"></i>Đặt lại
+            </button>
+          </div>
+        </div>
+        
+      <!-- Hiển thị trạng thái lọc hiện tại -->
+      <div class="filter-status mt-2 d-flex flex-wrap">
+        <div class="filter-tag me-2 mb-1" id="time-filter-tag">
+          <span class="tag-text"><i class="bi bi-calendar3 me-1"></i>Tháng này</span>
+          </div>
+        <div class="filter-tag me-2 mb-1" id="status-filter-tag">
+          <span class="tag-text"><i class="bi bi-list-check me-1"></i>Tất cả</span>
+        </div>
+        <div class="filter-tag me-2 mb-1" id="category-filter-tag">
+          <span class="tag-text"><i class="bi bi-tag me-1"></i>Tất cả</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Bottom Sheets cho mobile -->
+  <!-- Thời gian -->
+  <div class="bottom-sheet compact-sheet d-md-none" id="time-sheet">
+    <div class="bottom-sheet-header">
+      <h6><i class="bi bi-calendar3 me-2"></i>Chọn thời gian</h6>
+      <button class="btn btn-close-sheet"><i class="bi bi-x"></i></button>
+    </div>
+    <ul class="bottom-sheet-list">
+      <li><a class="bottom-sheet-item quick-date-btn" href="#" data-period="today" data-id="today-btn"><i class="bi bi-calendar-day me-2"></i>Hôm nay</a></li>
+      <li><a class="bottom-sheet-item quick-date-btn" href="#" data-period="week" data-id="week-btn"><i class="bi bi-calendar-week me-2"></i>Tuần này</a></li>
+      <li><a class="bottom-sheet-item quick-date-btn active" href="#" data-period="month" data-id="month-btn"><i class="bi bi-calendar-month me-2"></i>Tháng này</a></li>
+      <li><a class="bottom-sheet-item quick-date-btn" href="#" data-period="year" data-id="year-btn"><i class="bi bi-calendar-range me-2"></i>Năm nay</a></li>
+      <li><a class="bottom-sheet-item" href="#" data-id="custom-date-btn"><i class="bi bi-sliders me-2"></i>Tùy chỉnh...</a></li>
+    </ul>
+  </div>
+  
+  <!-- Trạng thái -->
+  <div class="bottom-sheet compact-sheet d-md-none" id="status-sheet">
+    <div class="bottom-sheet-header">
+      <h6><i class="bi bi-list-check me-2"></i>Chọn trạng thái</h6>
+      <button class="btn btn-close-sheet"><i class="bi bi-x"></i></button>
+    </div>
+    <ul class="bottom-sheet-list">
+      <li><button class="bottom-sheet-item status-item active" data-value="all"><i class="bi bi-list me-2"></i>Tất cả trạng thái</button></li>
+      <li><button class="bottom-sheet-item status-item" data-value="paid"><i class="bi bi-check-circle me-2"></i>Đã thanh toán</button></li>
+      <li><button class="bottom-sheet-item status-item" data-value="unpaid"><i class="bi bi-x-circle me-2"></i>Chưa thanh toán</button></li>
+    </ul>
+  </div>
+  
+  <!-- Danh mục -->
+  <div class="bottom-sheet compact-sheet d-md-none" id="category-sheet">
+    <div class="bottom-sheet-header">
+      <h6><i class="bi bi-tag me-2"></i>Chọn danh mục</h6>
+      <button class="btn btn-close-sheet"><i class="bi bi-x"></i></button>
+    </div>
+    <ul class="bottom-sheet-list">
+      <li><button class="bottom-sheet-item category-item active" data-value="all"><i class="bi bi-tag me-2"></i>Tất cả danh mục</button></li>
+      <% if (staticData && staticData.categories) { %>
+        <% staticData.categories.forEach(function(category) { %>
+          <li><button class="bottom-sheet-item category-item" data-value="<%= category.name %>"><i class="bi bi-tag me-2"></i><%= category.name %></button></li>
+        <% }); %>
+      <% } %>
+    </ul>
+  </div>
+  
+  <!-- Tùy chỉnh thời gian -->
+  <div class="bottom-sheet compact-sheet d-md-none" id="custom-date-sheet">
+    <div class="bottom-sheet-header">
+      <h6><i class="bi bi-sliders me-2"></i>Tùy chỉnh thời gian</h6>
+      <button class="btn btn-close-sheet"><i class="bi bi-x"></i></button>
+    </div>
+    <div class="bottom-sheet-content p-3">
+      <div class="row g-2">
+        <div class="col-6">
+          <label for="date-from" class="form-label text-muted small mb-1">Từ ngày:</label>
+          <div class="input-group input-group-sm">
+            <span class="input-group-text bg-light"><i class="bi bi-calendar-date"></i></span>
+            <input type="date" class="form-control" id="date-from">
+          </div>
+        </div>
+        
+        <div class="col-6">
+          <label for="date-to" class="form-label text-muted small mb-1">Đến ngày:</label>
+          <div class="input-group input-group-sm">
+            <span class="input-group-text bg-light"><i class="bi bi-calendar-date"></i></span>
+            <input type="date" class="form-control" id="date-to">
+          </div>
+        </div>
+      </div>
+      
+      <div class="d-grid mt-3">
+        <button class="btn btn-primary btn-sm" id="apply-custom-date">
+          <i class="bi bi-check2 me-1"></i>Áp dụng
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Thêm overlay cho toàn trang -->
+  <div class="overlay d-md-none" id="page-overlay"></div>
+  
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Các phần tử DOM
+    const pageOverlay = document.getElementById('page-overlay');
+    const timeFilterTag = document.getElementById('time-filter-tag');
+    const statusFilterTag = document.getElementById('status-filter-tag');
+    const categoryFilterTag = document.getElementById('category-filter-tag');
+    const resetFilterIcon = document.getElementById('reset-filter-icon');
+    const resetFilterDesktop = document.getElementById('reset-filter-desktop');
+    const customDateSheet = document.getElementById('custom-date-sheet');
+    const applyCustomDateBtn = document.getElementById('apply-custom-date');
+    
+    // Lưu trữ giá trị lọc
+    let filterValues = {
+      time: 'month',
+      status: 'all',
+      category: 'all',
+      startDate: '',
+      endDate: ''
+    };
+    
+    // Khởi tạo từ localStorage nếu có
+    if (localStorage.getItem('dashboard_period')) {
+      filterValues.time = localStorage.getItem('dashboard_period');
+    }
+    if (localStorage.getItem('dashboard_status')) {
+      filterValues.status = localStorage.getItem('dashboard_status');
+    }
+    if (localStorage.getItem('dashboard_category')) {
+      filterValues.category = localStorage.getItem('dashboard_category');
+    }
+    if (localStorage.getItem('dashboard_start_date')) {
+      filterValues.startDate = localStorage.getItem('dashboard_start_date');
+      document.getElementById('date-from').value = filterValues.startDate;
+    }
+    if (localStorage.getItem('dashboard_end_date')) {
+      filterValues.endDate = localStorage.getItem('dashboard_end_date');
+      document.getElementById('date-to').value = filterValues.endDate;
+    }
+    
+    // Cập nhật hiển thị tag ban đầu
+    updateFilterTags();
+    
+    // Xử lý click vào các icon filter trên mobile
+    document.querySelectorAll('.filter-icon-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const targetSheet = this.getAttribute('data-target');
+        const sheet = document.getElementById(targetSheet);
+        
+        if (sheet && window.innerWidth < 768) {
+          // Hiển thị sheet
+          sheet.style.display = 'block';
+          setTimeout(() => {
+            sheet.classList.add('active');
+            if (pageOverlay) {
+              pageOverlay.classList.add('active');
+            }
+            document.body.style.overflow = 'hidden';
+          }, 10);
+        }
+      });
+    });
+    
+    // Xử lý nút đặt lại cho cả mobile và desktop
+    [resetFilterIcon, resetFilterDesktop].forEach(btn => {
+      if (btn) {
+        btn.addEventListener('click', function() {
+          // Đặt lại giá trị lọc
+          filterValues = {
+            time: 'month',
+            status: 'all',
+            category: 'all',
+            startDate: '',
+            endDate: ''
+          };
+          
+          // Xóa localStorage
+          localStorage.removeItem('dashboard_period');
+          localStorage.removeItem('dashboard_status');
+          localStorage.removeItem('dashboard_category');
+          localStorage.removeItem('dashboard_start_date');
+          localStorage.removeItem('dashboard_end_date');
+          
+          // Đặt lại trạng thái active cho cả mobile và desktop
+          document.querySelectorAll('.quick-date-btn, .status-item, .category-item').forEach(item => {
+            item.classList.remove('active');
+            if ((item.getAttribute('data-period') === 'month') || 
+                (item.getAttribute('data-value') === 'all')) {
+              item.classList.add('active');
+            }
+          });
+          
+          // Xóa giá trị input date
+          document.getElementById('date-from').value = '';
+          document.getElementById('date-to').value = '';
+          
+          // Cập nhật hiển thị tag
+          updateFilterTags();
+          
+          // Tải lại dữ liệu
+          if (typeof loadDashboardData === 'function') {
+            loadDashboardData(true);
+          }
+        });
+      }
+    });
+    
+    // Xử lý đóng bottom sheet
+    document.querySelectorAll('.btn-close-sheet').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const sheet = this.closest('.bottom-sheet');
+        closeBottomSheet(sheet);
+      });
+    });
+    
+    // Xử lý click vào overlay
+    if (pageOverlay) {
+      pageOverlay.addEventListener('click', function() {
+        const activeSheets = document.querySelectorAll('.bottom-sheet.active');
+        activeSheets.forEach(sheet => {
+          closeBottomSheet(sheet);
+        });
+      });
+    }
+    
+    // Xử lý chọn thời gian (cả mobile và desktop)
+    document.querySelectorAll('.quick-date-btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Tránh thực hiện hành động nếu đã active
+        if (this.classList.contains('active')) {
+          const sheet = this.closest('.bottom-sheet');
+          if (sheet) closeBottomSheet(sheet);
+          return;
+        }
+        
+        const period = this.getAttribute('data-period');
+        
+        // Cập nhật trạng thái active cho cả mobile và desktop
+        document.querySelectorAll('.quick-date-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        document.querySelectorAll(`[data-period="${period}"]`).forEach(btn => {
+          btn.classList.add('active');
+        });
+        
+        // Cập nhật giá trị lọc
+        filterValues.time = period;
+        filterValues.startDate = '';
+        filterValues.endDate = '';
+        
+        // Lưu vào localStorage
+        localStorage.setItem('dashboard_period', period);
+        localStorage.removeItem('dashboard_start_date');
+        localStorage.removeItem('dashboard_end_date');
+        
+        // Cập nhật hiển thị tag
+        updateFilterTags();
+        
+        // Đóng bottom sheet nếu đang ở mobile
+        const sheet = this.closest('.bottom-sheet');
+        if (sheet) closeBottomSheet(sheet);
+        
+        // Tải lại dữ liệu
+        if (typeof loadDashboardData === 'function') {
+          loadDashboardData(true);
+        }
+      });
+    });
+    
+    // Xử lý chọn tùy chỉnh thời gian
+    document.querySelectorAll('[data-id="custom-date-btn"]').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        if (window.innerWidth < 768) {
+          // Đóng sheet hiện tại
+          const currentSheet = this.closest('.bottom-sheet');
+          closeBottomSheet(currentSheet);
+          
+          // Mở sheet tùy chỉnh
+          setTimeout(() => {
+            customDateSheet.style.display = 'block';
+            setTimeout(() => {
+              customDateSheet.classList.add('active');
+              pageOverlay.classList.add('active');
+            }, 10);
+          }, 300);
+        } else {
+          // Xử lý cho desktop - có thể mở modal hoặc form tùy chỉnh
+          // TODO: Thêm xử lý cho desktop
+        }
+      });
+    });
+    
+    // Xử lý áp dụng tùy chỉnh thời gian
+    if (applyCustomDateBtn) {
+      applyCustomDateBtn.addEventListener('click', function() {
+        const startDate = document.getElementById('date-from').value;
+        const endDate = document.getElementById('date-to').value;
+        
+        if (!startDate || !endDate) {
+          alert('Vui lòng chọn đầy đủ ngày bắt đầu và kết thúc');
+          return;
+        }
+        
+        // Cập nhật giá trị lọc
+        filterValues.time = 'custom';
+        filterValues.startDate = startDate;
+        filterValues.endDate = endDate;
+        
+        // Lưu vào localStorage
+        localStorage.removeItem('dashboard_period');
+        localStorage.setItem('dashboard_start_date', startDate);
+        localStorage.setItem('dashboard_end_date', endDate);
+        
+        // Cập nhật trạng thái active
+        document.querySelectorAll('.quick-date-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        
+        // Cập nhật hiển thị tag
+        updateFilterTags();
+        
+        // Đóng bottom sheet nếu đang ở mobile
+        if (window.innerWidth < 768) {
+          closeBottomSheet(customDateSheet);
+        }
+        
+        // Tải lại dữ liệu
+        if (typeof loadDashboardData === 'function') {
+          loadDashboardData(true);
+        }
+      });
+    }
+    
+    // Xử lý chọn trạng thái và danh mục (cả mobile và desktop)
+    ['status', 'category'].forEach(type => {
+      document.querySelectorAll(`.${type}-item`).forEach(item => {
+        item.addEventListener('click', function() {
+          const value = this.getAttribute('data-value');
+          
+          // Tránh thực hiện hành động nếu đã active
+          if (this.classList.contains('active')) {
+            const sheet = this.closest('.bottom-sheet');
+            if (sheet) closeBottomSheet(sheet);
+            return;
+          }
+          
+          // Cập nhật trạng thái active cho cả mobile và desktop
+          document.querySelectorAll(`.${type}-item`).forEach(item => {
+            item.classList.remove('active');
+          });
+          document.querySelectorAll(`.${type}-item[data-value="${value}"]`).forEach(item => {
+            item.classList.add('active');
+          });
+          
+          // Cập nhật giá trị lọc
+          filterValues[type] = value;
+          
+          // Lưu vào localStorage
+          localStorage.setItem(`dashboard_${type}`, value);
+          
+          // Cập nhật hiển thị tag
+          updateFilterTags();
+          
+          // Đóng bottom sheet nếu đang ở mobile
+          const sheet = this.closest('.bottom-sheet');
+          if (sheet) closeBottomSheet(sheet);
+          
+          // Tải lại dữ liệu
+          if (typeof loadDashboardData === 'function') {
+            loadDashboardData(true);
+          }
+        });
+      });
+    });
+  
+    // Hàm đóng bottom sheet
+    function closeBottomSheet(sheet) {
+      if (!sheet) return;
+        
+        // Thêm animation khi đóng
+        sheet.style.animation = 'slideDownAnimation 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+        pageOverlay.style.animation = 'fadeOutOverlay 0.3s ease forwards';
+        
+      // Thêm keyframe animation cho đóng bottom sheet nếu chưa có
+        if (!document.querySelector('style#close-animations')) {
+          const style = document.createElement('style');
+          style.id = 'close-animations';
+          style.textContent = `
+            @keyframes slideDownAnimation {
+              0% {
+                transform: translateY(0);
+                opacity: 1;
+              }
+              100% {
+                transform: translateY(100%);
+                opacity: 0;
+              }
+            }
+            
+            @keyframes fadeOutOverlay {
+              0% {
+                opacity: 1;
+              }
+              100% {
+                opacity: 0;
+              }
+            }
+          `;
+          document.head.appendChild(style);
+        }
+        
+        // Đợi animation hoàn thành rồi mới ẩn
+        setTimeout(() => {
+          sheet.classList.remove('active');
+          sheet.style.animation = '';
+        sheet.style.display = 'none';
+          pageOverlay.classList.remove('active');
+          pageOverlay.style.animation = '';
+          document.body.style.overflow = ''; // Khôi phục scroll
+        }, 300);
+    }
+    
+    // Hàm cập nhật hiển thị tag
+    function updateFilterTags() {
+      // Cập nhật tag thời gian
+      let timeText = '';
+      let timeIcon = 'bi-calendar3';
+      
+      if (filterValues.time === 'custom') {
+        const startDate = new Date(filterValues.startDate);
+        const endDate = new Date(filterValues.endDate);
+        const startFormatted = startDate.toLocaleDateString('vi-VN');
+        const endFormatted = endDate.toLocaleDateString('vi-VN');
+        timeText = `${startFormatted} - ${endFormatted}`;
+        timeIcon = 'bi-sliders';
+      } else if (filterValues.time === 'today') {
+        timeText = 'Hôm nay';
+        timeIcon = 'bi-calendar-day';
+      } else if (filterValues.time === 'week') {
+        timeText = 'Tuần này';
+        timeIcon = 'bi-calendar-week';
+      } else if (filterValues.time === 'month') {
+        timeText = 'Tháng này';
+        timeIcon = 'bi-calendar-month';
+      } else if (filterValues.time === 'year') {
+        timeText = 'Năm nay';
+        timeIcon = 'bi-calendar-range';
+      }
+      
+      timeFilterTag.querySelector('.tag-text').innerHTML = `<i class="bi ${timeIcon} me-1"></i>${timeText}`;
+      
+      // Cập nhật tag trạng thái
+      let statusText = '';
+      if (filterValues.status === 'all') {
+        statusText = 'Tất cả';
+      } else if (filterValues.status === 'paid') {
+        statusText = 'Đã thanh toán';
+      } else if (filterValues.status === 'unpaid') {
+        statusText = 'Chưa thanh toán';
+      }
+      
+      statusFilterTag.querySelector('.tag-text').innerHTML = `<i class="bi bi-list-check me-1"></i>${statusText}`;
+      
+      // Cập nhật tag danh mục
+      let categoryText = '';
+      if (filterValues.category === 'all') {
+        categoryText = 'Tất cả';
+      } else {
+        categoryText = filterValues.category;
+      }
+      
+      categoryFilterTag.querySelector('.tag-text').innerHTML = `<i class="bi bi-tag me-1"></i>${categoryText}`;
+    }
+  });
+  </script>
