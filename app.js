@@ -265,12 +265,16 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Cấu hình upload file
-const multer = require('multer');
-const storage = multer.memoryStorage();
-// app.use(multer().none()); // Comment lại dòng này vì nó xung đột với cấu hình multer trong routes/expenses.js
+app.use(express.static(path.join(__dirname, 'public'), {
+  setHeaders: (res, filePath) => {
+    // Đặt Content-Type đúng cho file CSS
+    if (filePath.endsWith('.css')) {
+      res.setHeader('Content-Type', 'text/css');
+    }
+    // Đặt header cache điều khiển cho static files
+    res.setHeader('Cache-Control', 'max-age=86400'); // Cache 1 ngày
+  }
+}));
 
 // Thiết lập session
 app.use(session({
@@ -368,31 +372,45 @@ app.get('/dashboard', async (req, res) => {
   }
 });
 
-// Tạo HTTP server
-const server = http.createServer(app);
+// Thiết lập điều kiện để chỉ sử dụng WebSocket trong môi trường phát triển
+let wsServer = null;
 
-// Khởi tạo WebSocket
-const wsServer = setupWebSocket(server);
+// Điều kiện cho môi trường không phải Vercel
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  // Tạo HTTP server
+  const server = http.createServer(app);
+  
+  // Khởi tạo WebSocket chỉ trong môi trường phát triển
+  wsServer = setupWebSocket(server);
+  
+  // Lưu wsServer vào app để sử dụng trong routes
+  app.set('wsServer', wsServer);
+  
+  // Khởi động server truyền thống
+  server.listen(PORT, () => {
+    console.log(`Server đang chạy tại http://localhost:${PORT}`);
+  });
+} else {
+  // Trong môi trường Vercel, tạo một mock wsServer
+  app.set('wsServer', {
+    notifyUser: () => console.log('WebSocket không được hỗ trợ trên Vercel'),
+    notifyAll: () => console.log('WebSocket không được hỗ trợ trên Vercel'),
+    getActiveConnections: () => 0
+  });
+  
+  // Không cần server.listen trong môi trường Vercel
+}
 
-// Lưu wsServer vào app để sử dụng trong routes
-app.set('wsServer', wsServer);
-
-// Thêm API endpoint để kiểm tra trạng thái WebSocket
+// API endpoint để kiểm tra WebSocket (điều chỉnh để hoạt động cả hai môi trường)
 app.get('/api/ws-status', (req, res) => {
+  const connections = app.get('wsServer')?.getActiveConnections() || 0;
   res.json({
     status: 'ok',
-    connections: wsServer.getActiveConnections()
+    connections,
+    environment: process.env.NODE_ENV || 'development',
+    isVercel: !!process.env.VERCEL
   });
 });
 
-// Debug môi trường
-console.log('=== DEBUG ENV ===');
-console.log('NODE_ENV:', process.env.NODE_ENV);
-console.log('SUPABASE_URL:', process.env.SUPABASE_URL);
-console.log('SUPABASE_ANON_KEY exists:', !!process.env.SUPABASE_ANON_KEY);
-console.log('SUPABASE_SERVICE_ROLE_KEY exists:', !!process.env.SUPABASE_SERVICE_ROLE_KEY);
-
-// Khởi động server
-server.listen(PORT, () => {
-  console.log(`Server đang chạy tại http://localhost:${PORT}`);
-}); 
+// Xuất app cho serverless functions trong Vercel
+module.exports = app;
